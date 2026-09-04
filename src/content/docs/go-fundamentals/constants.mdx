@@ -1,0 +1,283 @@
+---
+title: "Constants"
+description: "A constant is a value that cannot be changed after declaration."
+order: 6
+section: "Go - Fundamentals"
+---
+
+A constant is a value that cannot be changed after declaration.
+
+Use:
+
+```go
+const
+```
+
+Example:
+
+```go
+const pi = 3.14159
+```
+
+You can use it:
+
+```go
+fmt.Println(pi)
+```
+
+---
+
+## 11. Constant with a Type
+
+You can specify the type:
+
+```go
+const age int = 21
+```
+
+Or let Go infer it:
+
+```go
+const age = 21
+```
+
+---
+
+## 12. Constants Cannot Be Changed
+
+This is invalid:
+
+```go
+const pi = 3.14159
+
+pi = 4
+```
+
+The compiler will report an error because constants cannot be reassigned.
+
+---
+
+## 13. Multiple Constants
+
+You can declare multiple constants:
+
+```go
+const (
+    pi     = 3.14159
+    version = 1
+    appName = "MyApp"
+)
+```
+
+This is called a constant block.
+
+---
+
+## 14. When Should You Use Variables?
+
+Use a variable when the value can change.
+
+Example:
+
+```go
+score := 0
+
+score = 10
+score = 20
+score = 30
+```
+
+`score` changes, so it should be a variable.
+
+---
+
+## 15. When Should You Use Constants?
+
+Use a constant when the value should remain fixed.
+
+Example:
+
+```go
+const maxUsers = 100
+const appName = "GoLearn"
+```
+
+These values aren't expected to change while the program is running.
+
+---
+
+## 16. Practical Example
+
+Imagine you're building an e-commerce application.
+
+```go
+const taxRate = 0.15
+
+price := 1000.0
+quantity := 2
+
+total := price * float64(quantity)
+
+fmt.Println("Total:", total)
+```
+
+Here:
+
+```text
+taxRate → constant
+price   → variable
+quantity → variable
+total   → variable
+```
+
+---
+
+## 17. Naming Variables
+
+Go convention recommends using clear names.
+
+Good:
+
+```go
+userName := "Siam"
+userAge := 21
+totalPrice := 500
+```
+
+Bad:
+
+```go
+x := "Siam"
+a := 21
+p := 500
+```
+
+Short names can be appropriate when the scope is tiny:
+
+```go
+for i := 0; i < 10; i++ {
+    fmt.Println(i)
+}
+```
+
+---
+
+## 18. Naming Convention
+
+Go commonly uses **camelCase** for local variables.
+
+```go
+userName
+totalPrice
+firstName
+accountBalance
+```
+
+Exported identifiers start with uppercase:
+
+```go
+UserName
+TotalPrice
+```
+
+---
+
+## 19. Shadowing
+
+A variable can hide another variable with the same name in an inner scope.
+
+Example:
+
+```go
+name := "Siam"
+
+if true {
+    name := "Rakib"
+
+    fmt.Println(name)
+}
+
+fmt.Println(name)
+```
+
+Output:
+
+```text
+Rakib
+Siam
+```
+
+The inner `name` is a different variable that shadows the outer one.
+
+Be careful with shadowing because it can make code confusing.
+
+---
+
+## 20. Complete Example
+
+```go
+package main
+
+import "fmt"
+
+const taxRate = 0.15
+
+func main() {
+    product := "Laptop"
+    price := 50000.0
+    quantity := 2
+
+    total := price * float64(quantity)
+    tax := total * taxRate
+    finalPrice := total + tax
+
+    fmt.Println("Product:", product)
+    fmt.Println("Price:", price)
+    fmt.Println("Quantity:", quantity)
+    fmt.Println("Tax:", tax)
+    fmt.Println("Final Price:", finalPrice)
+}
+```
+
+---
+
+## Exercise
+
+Create variables for:
+
+```text
+Name
+Age
+City
+Salary
+IsDeveloper
+```
+
+Then print them.
+
+After that, create constants for:
+
+```text
+Pi
+DaysInWeek
+AppName
+```
+
+Try changing one of the constants and observe the compiler error.
+
+---
+
+## Key Takeaways
+
+```text
+var       → declare a variable
+:=        → short variable declaration
+const     → declare a constant
+=         → assign a value
+```
+
+Remember:
+
+> **Variables can change. Constants cannot be reassigned.**
+
+Next, we'll learn about **Go's data types**.

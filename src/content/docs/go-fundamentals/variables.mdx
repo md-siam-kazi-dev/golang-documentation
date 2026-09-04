@@ -1,0 +1,388 @@
+---
+title: "Variables"
+description: "Variables and constants are fundamental building blocks of every Go program."
+order: 5
+section: "Go - Fundamentals"
+---
+
+Variables and constants are fundamental building blocks of every Go program.
+
+A **variable** stores a value that can change.
+
+A **constant** stores a value that cannot change after it has been declared.
+
+---
+
+## Variables
+
+A variable is a named location used to store data.
+
+For example:
+
+```go
+var age int = 21
+```
+
+Here:
+
+```text
+var  → declares a variable
+age  → variable name
+int  → data type
+21   → value
+```
+
+You can think of it as:
+
+```text
+age
+ ↓
+┌────┐
+│ 21 │
+└────┘
+```
+
+---
+
+## 1. Declaring a Variable
+
+The basic syntax is:
+
+```go
+var variableName type
+```
+
+Example:
+
+```go
+var age int
+```
+
+Initially, `age` receives its **zero value**.
+
+For an `int`:
+
+```text
+0
+```
+
+So:
+
+```go
+var age int
+
+fmt.Println(age)
+```
+
+Output:
+
+```text
+0
+```
+
+---
+
+## 2. Assigning a Value
+
+You can assign a value after declaration:
+
+```go
+var age int
+
+age = 21
+```
+
+Now:
+
+```go
+fmt.Println(age)
+```
+
+Output:
+
+```text
+21
+```
+
+You can change it:
+
+```go
+age = 22
+```
+
+Variables can change.
+
+---
+
+## 3. Declaration and Assignment Together
+
+You can declare and initialize a variable in one line:
+
+```go
+var age int = 21
+```
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var age int = 21
+
+    fmt.Println(age)
+}
+```
+
+---
+
+## 4. Type Inference
+
+Go can determine the type automatically.
+
+Instead of:
+
+```go
+var age int = 21
+```
+
+you can write:
+
+```go
+var age = 21
+```
+
+Go understands that `21` is an integer.
+
+Similarly:
+
+```go
+var name = "Siam"
+var price = 99.99
+var active = true
+```
+
+Go determines:
+
+```text
+name   → string
+price  → float64
+active → bool
+```
+
+---
+
+## 5. Short Variable Declaration
+
+Go provides a convenient syntax:
+
+```go
+age := 21
+```
+
+This is called a **short variable declaration**.
+
+It is equivalent to:
+
+```go
+var age = 21
+```
+
+Example:
+
+```go
+name := "Siam"
+age := 21
+isStudent := true
+```
+
+This is extremely common in Go code.
+
+---
+
+## Important Rule
+
+The `:=` syntax can only be used **inside functions**.
+
+This is valid:
+
+```go
+func main() {
+    age := 21
+}
+```
+
+But this is invalid at package level:
+
+```go
+package main
+
+age := 21
+```
+
+At package level, use:
+
+```go
+var age = 21
+```
+
+---
+
+## 6. Multiple Variables
+
+You can declare multiple variables:
+
+```go
+var name, city string
+```
+
+Or:
+
+```go
+var age, score int
+```
+
+You can also initialize them:
+
+```go
+var name, city string = "Siam", "Dhaka"
+```
+
+---
+
+## 7. Multiple Assignment
+
+Go allows multiple assignment:
+
+```go
+a, b := 10, 20
+```
+
+Now:
+
+```text
+a = 10
+b = 20
+```
+
+Example:
+
+```go
+x, y := 10, 20
+
+fmt.Println(x)
+fmt.Println(y)
+```
+
+Output:
+
+```text
+10
+20
+```
+
+---
+
+## 8. Swapping Variables
+
+Go makes swapping extremely simple.
+
+In many languages you need a temporary variable.
+
+In Go:
+
+```go
+a := 10
+b := 20
+
+a, b = b, a
+```
+
+Now:
+
+```text
+a = 20
+b = 10
+```
+
+---
+
+## 9. Variable Scope
+
+Scope determines where a variable can be accessed.
+
+Example:
+
+```go
+func main() {
+    age := 21
+
+    fmt.Println(age)
+}
+```
+
+`age` exists inside `main()`.
+
+You cannot access it outside that function.
+
+---
+
+## Block Scope
+
+Variables declared inside `{}` are generally available only within that block.
+
+```go
+func main() {
+    if true {
+        message := "Hello"
+
+        fmt.Println(message)
+    }
+
+    // message is not available here
+}
+```
+
+---
+
+## 10. Zero Values
+
+One of Go's important features is that variables receive a default value.
+
+Examples:
+
+| Type | Zero Value |
+|---|---|
+| `int` | `0` |
+| `float64` | `0` |
+| `bool` | `false` |
+| `string` | `""` |
+| pointer | `nil` |
+| slice | `nil` |
+| map | `nil` |
+
+Example:
+
+```go
+var age int
+var name string
+var active bool
+
+fmt.Println(age)
+fmt.Println(name)
+fmt.Println(active)
+```
+
+Output:
+
+```text
+0
+
+false
+```
+
+The empty line represents the empty string.
+
+---

@@ -1,0 +1,764 @@
+---
+title: "Methods"
+description: "A method is a function that is associated with a particular type."
+order: 12
+section: "Go - Core Programming"
+---
+
+A **method** is a function that is associated with a particular type.
+
+If you have already learned functions and structs, methods are the next important concept.
+
+For example, suppose we have a `User`:
+
+```go
+type User struct {
+    Name string
+    Age  int
+}
+```
+
+We can create a normal function:
+
+```go
+func greet(user User) {
+    fmt.Println("Hello", user.Name)
+}
+```
+
+But Go allows us to attach the function directly to `User`.
+
+That is called a **method**.
+
+```go
+func (u User) greet() {
+    fmt.Println("Hello", u.Name)
+}
+```
+
+Now we can write:
+
+```go
+user.greet()
+```
+
+---
+
+## 1. Function vs Method
+
+A normal function:
+
+```go
+func greet(user User) {
+    fmt.Println("Hello", user.Name)
+}
+```
+
+Call:
+
+```go
+greet(user)
+```
+
+A method:
+
+```go
+func (u User) greet() {
+    fmt.Println("Hello", u.Name)
+}
+```
+
+Call:
+
+```go
+user.greet()
+```
+
+The main difference is the **receiver**.
+
+---
+
+## 2. What is a Receiver?
+
+Look at:
+
+```go
+func (u User) greet() {
+    fmt.Println("Hello", u.Name)
+}
+```
+
+This part:
+
+```go
+(u User)
+```
+
+is called the **receiver**.
+
+It tells Go:
+
+> This method belongs to the `User` type.
+
+Think of it like:
+
+```text
+User
+  ↓
+  greet()
+```
+
+---
+
+## 3. Basic Method Example
+
+```go
+package main
+
+import "fmt"
+
+type User struct {
+    Name string
+    Age  int
+}
+
+func (u User) Greet() {
+    fmt.Println("Hello", u.Name)
+}
+
+func main() {
+    user := User{
+        Name: "Siam",
+        Age:  21,
+    }
+
+    user.Greet()
+}
+```
+
+Output:
+
+```text
+Hello Siam
+```
+
+---
+
+## 4. Method With Parameters
+
+Methods can receive parameters.
+
+```go
+type User struct {
+    Name string
+}
+
+func (u User) Say(message string) {
+    fmt.Println(u.Name, "says:", message)
+}
+```
+
+Usage:
+
+```go
+user.Say("Hello everyone")
+```
+
+Output:
+
+```text
+Siam says: Hello everyone
+```
+
+---
+
+## 5. Method With Return Value
+
+A method can return a value.
+
+```go
+type Rectangle struct {
+    Width  float64
+    Height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.Width * r.Height
+}
+```
+
+Usage:
+
+```go
+rectangle := Rectangle{
+    Width:  10,
+    Height: 5,
+}
+
+fmt.Println(rectangle.Area())
+```
+
+Output:
+
+```text
+50
+```
+
+---
+
+## 6. Multiple Return Values
+
+Methods can also return multiple values.
+
+```go
+type User struct {
+    Name string
+    Age  int
+}
+
+func (u User) Info() (string, int) {
+    return u.Name, u.Age
+}
+```
+
+Usage:
+
+```go
+name, age := user.Info()
+
+fmt.Println(name)
+fmt.Println(age)
+```
+
+---
+
+## 7. Value Receiver
+
+Consider:
+
+```go
+func (u User) Birthday() {
+    u.Age++
+}
+```
+
+Here `u` is a copy of the original `User`.
+
+Example:
+
+```go
+user := User{
+    Name: "Siam",
+    Age: 21,
+}
+
+user.Birthday()
+
+fmt.Println(user.Age)
+```
+
+The output remains:
+
+```text
+21
+```
+
+Why?
+
+Because the method received a copy.
+
+---
+
+## 8. Pointer Receiver
+
+If you want the method to modify the original value, use a pointer receiver.
+
+```go
+func (u *User) Birthday() {
+    u.Age++
+}
+```
+
+Now:
+
+```go
+user := User{
+    Name: "Siam",
+    Age: 21,
+}
+
+user.Birthday()
+
+fmt.Println(user.Age)
+```
+
+Output:
+
+```text
+22
+```
+
+---
+
+## 9. Why Pointer Receivers?
+
+Pointer receivers are useful when:
+
+1. The method needs to modify the receiver.
+2. The struct is large and copying it is undesirable.
+3. You want consistent method sets across related methods.
+
+Example:
+
+```go
+func (u *User) ChangeName(name string) {
+    u.Name = name
+}
+```
+
+Usage:
+
+```go
+user.ChangeName("Rahim")
+
+fmt.Println(user.Name)
+```
+
+---
+
+## 10. Go Automatically Takes the Address
+
+Suppose:
+
+```go
+func (u *User) ChangeName(name string) {
+    u.Name = name
+}
+```
+
+And:
+
+```go
+user := User{
+    Name: "Siam",
+}
+
+user.ChangeName("Rahim")
+```
+
+You don't need to write:
+
+```go
+(&user).ChangeName("Rahim")
+```
+
+Go automatically takes the address when the value is addressable.
+
+---
+
+## 11. Pointer Method on Pointer
+
+You can also have:
+
+```go
+user := &User{
+    Name: "Siam",
+}
+
+user.ChangeName("Rahim")
+```
+
+This works naturally.
+
+---
+
+## 12. Methods on Custom Types
+
+Methods aren't limited to structs.
+
+You can define your own type:
+
+```go
+type MyInt int
+```
+
+Then attach a method:
+
+```go
+func (n MyInt) Double() MyInt {
+    return n * 2
+}
+```
+
+Usage:
+
+```go
+num := MyInt(10)
+
+fmt.Println(num.Double())
+```
+
+Output:
+
+```text
+20
+```
+
+---
+
+## 13. Methods on String-Based Types
+
+```go
+type Username string
+
+func (u Username) IsValid() bool {
+    return len(u) >= 3
+}
+```
+
+Usage:
+
+```go
+name := Username("Siam")
+
+fmt.Println(name.IsValid())
+```
+
+---
+
+## 14. Methods Cannot Be Defined on Arbitrary Types
+
+You cannot define methods on a type you don't own.
+
+For example, you cannot directly add a method to the built-in `int` type.
+
+This is why we create:
+
+```go
+type MyInt int
+```
+
+Then:
+
+```go
+func (n MyInt) Double() MyInt {
+    return n * 2
+}
+```
+
+---
+
+## 15. Method Naming and Exporting
+
+Just like functions, capitalization matters.
+
+```go
+func (u User) Greet()
+```
+
+`Greet` is exported.
+
+```go
+func (u User) greet()
+```
+
+`greet` is unexported.
+
+Exported methods can be used from another package.
+
+---
+
+## 16. Method Returning the Receiver
+
+A method can return the receiver.
+
+```go
+type Counter struct {
+    Value int
+}
+
+func (c *Counter) Increment() *Counter {
+    c.Value++
+    return c
+}
+```
+
+Now you can chain:
+
+```go
+counter.Increment().Increment().Increment()
+```
+
+---
+
+## 17. Method Chaining
+
+Consider:
+
+```go
+type Builder struct {
+    Name string
+}
+
+func (b *Builder) SetName(name string) *Builder {
+    b.Name = name
+    return b
+}
+```
+
+Now:
+
+```go
+builder := &Builder{}
+
+builder.
+    SetName("Siam")
+```
+
+Returning the receiver allows method chaining.
+
+---
+
+## 18. Methods and Interfaces
+
+Methods are extremely important for interfaces.
+
+Suppose:
+
+```go
+type Speaker interface {
+    Speak()
+}
+```
+
+And:
+
+```go
+type User struct {
+    Name string
+}
+
+func (u User) Speak() {
+    fmt.Println("Hello")
+}
+```
+
+Because `User` has the required method:
+
+```go
+Speak()
+```
+
+it satisfies the interface.
+
+```go
+var speaker Speaker = User{
+    Name: "Siam",
+}
+
+speaker.Speak()
+```
+
+---
+
+## 19. Method Set
+
+Go's interface system depends heavily on **method sets**.
+
+For:
+
+```go
+type User struct{}
+```
+
+and:
+
+```go
+func (u User) A() {}
+func (u *User) B() {}
+```
+
+The method set of:
+
+```text
+User
+```
+
+contains:
+
+```text
+A
+```
+
+while the method set of:
+
+```text
+*User
+```
+
+contains:
+
+```text
+A
+B
+```
+
+This becomes important when using pointer receivers with interfaces.
+
+---
+
+## 20. Practical Example: Bank Account
+
+```go
+type Account struct {
+    Owner   string
+    Balance float64
+}
+
+func (a *Account) Deposit(amount float64) {
+    a.Balance += amount
+}
+
+func (a *Account) Withdraw(amount float64) bool {
+    if amount > a.Balance {
+        return false
+    }
+
+    a.Balance -= amount
+    return true
+}
+```
+
+Usage:
+
+```go
+account := Account{
+    Owner:   "Siam",
+    Balance: 1000,
+}
+
+account.Deposit(500)
+
+success := account.Withdraw(300)
+
+fmt.Println(success)
+fmt.Println(account.Balance)
+```
+
+Output:
+
+```text
+true
+1200
+```
+
+---
+
+## 21. Methods in Backend Applications
+
+Methods are heavily used in Go backend architecture.
+
+For example:
+
+```go
+type UserService struct {
+    db *sql.DB
+}
+
+func (s *UserService) CreateUser(name string) error {
+    // database logic
+    return nil
+}
+
+func (s *UserService) GetUser(id int) (*User, error) {
+    // database logic
+    return nil, nil
+}
+```
+
+Now your code can be organized as:
+
+```text
+UserService
+    ├── CreateUser()
+    ├── GetUser()
+    ├── UpdateUser()
+    └── DeleteUser()
+```
+
+This is much cleaner than putting every function globally.
+
+---
+
+## 22. When Should You Use a Method?
+
+Use a method when the operation is naturally associated with a type.
+
+Good:
+
+```go
+user.ChangePassword()
+account.Deposit()
+cart.AddItem()
+order.CalculateTotal()
+```
+
+Less natural:
+
+```go
+CalculateUserSomething()
+```
+
+if it doesn't really belong to the `User` type.
+
+---
+
+## 23. Important Rule
+
+Remember:
+
+```go
+func (receiver Type) Method()
+```
+
+The receiver connects the method to the type.
+
+Value receiver:
+
+```go
+func (u User) Method()
+```
+
+Pointer receiver:
+
+```go
+func (u *User) Method()
+```
+
+Use a pointer receiver when you need to modify the original value or want to avoid copying a large value.
+
+---
+
+## 24. Summary
+
+Methods are functions attached to types.
+
+```go
+func (u User) Greet() {
+    fmt.Println("Hello")
+}
+```
+
+The important concepts are:
+
+```text
+Receiver
+Value receiver
+Pointer receiver
+Method set
+Methods on custom types
+Methods and interfaces
+Method chaining
+```
+
+Mastering methods will make structs, interfaces, and backend architecture much easier to understand.

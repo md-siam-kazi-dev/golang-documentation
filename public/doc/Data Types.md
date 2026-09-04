@@ -1,0 +1,977 @@
+# Data Types
+
+A data type tells Go **what kind of value a variable can store**.
+
+For example:
+
+```go
+var age int = 21
+```
+
+Here:
+
+```text
+age → variable
+int → data type
+21  → value
+```
+
+Go is **statically typed**, meaning the type of a variable is known and checked by the compiler.
+
+---
+
+# Why Do Data Types Matter?
+
+Different data require different types.
+
+For example:
+
+```text
+Age        → integer
+Price      → decimal number
+Name       → string
+IsLoggedIn → boolean
+```
+
+Example:
+
+```go
+age := 21
+price := 99.99
+name := "Siam"
+isLoggedIn := true
+```
+
+Go automatically determines their types.
+
+---
+
+# Go's Main Data Type Categories
+
+You can think of Go types as:
+
+```text
+Go Types
+│
+├── Basic Types
+│   ├── Boolean
+│   ├── Integer
+│   ├── Floating Point
+│   ├── Complex
+│   └── String
+│
+├── Composite Types
+│   ├── Array
+│   ├── Struct
+│   └── ...
+│
+├── Reference-like Types
+│   ├── Slice
+│   ├── Map
+│   ├── Pointer
+│   └── Channel
+│
+└── Interface Types
+```
+
+We'll learn the advanced types in later chapters.
+
+---
+
+# 1. Boolean
+
+The boolean type is:
+
+```go
+bool
+```
+
+It can have only two values:
+
+```text
+true
+false
+```
+
+Example:
+
+```go
+var isLoggedIn bool = true
+```
+
+Or:
+
+```go
+isLoggedIn := true
+```
+
+Example:
+
+```go
+isAdult := true
+
+fmt.Println(isAdult)
+```
+
+Output:
+
+```text
+true
+```
+
+---
+
+## Boolean Operations
+
+You can use:
+
+```go
+&&
+||
+!
+```
+
+Example:
+
+```go
+age := 21
+
+isAdult := age >= 18
+
+fmt.Println(isAdult)
+```
+
+Output:
+
+```text
+true
+```
+
+---
+
+# 2. Integer Types
+
+Go provides several integer types.
+
+### Signed Integers
+
+```text
+int
+int8
+int16
+int32
+int64
+```
+
+Signed integers can store positive and negative numbers.
+
+Example:
+
+```go
+var age int = 21
+var temperature int = -5
+```
+
+---
+
+# Integer Sizes
+
+| Type | Size |
+|---|---:|
+| `int8` | 8 bits |
+| `int16` | 16 bits |
+| `int32` | 32 bits |
+| `int64` | 64 bits |
+
+`int` depends on the architecture.
+
+On modern 64-bit systems, `int` is usually 64 bits.
+
+For normal counting and indexing, use:
+
+```go
+int
+```
+
+unless you specifically need another integer size.
+
+---
+
+# 3. Unsigned Integers
+
+Go also provides:
+
+```text
+uint
+uint8
+uint16
+uint32
+uint64
+uintptr
+```
+
+Unsigned integers cannot represent negative values.
+
+Example:
+
+```go
+var count uint = 100
+```
+
+`uint8` is also commonly known as:
+
+```go
+byte
+```
+
+So:
+
+```go
+var b byte = 65
+```
+
+is equivalent to:
+
+```go
+var b uint8 = 65
+```
+
+---
+
+# 4. Floating-Point Numbers
+
+Go provides two floating-point types:
+
+```text
+float32
+float64
+```
+
+Example:
+
+```go
+var price float64 = 99.99
+```
+
+In most applications, use:
+
+```go
+float64
+```
+
+Example:
+
+```go
+temperature := 36.5
+```
+
+Go infers:
+
+```text
+float64
+```
+
+---
+
+# Floating-Point Precision
+
+Floating-point numbers aren't always perfectly precise.
+
+For example:
+
+```go
+a := 0.1
+b := 0.2
+
+fmt.Println(a + b)
+```
+
+You might see a result similar to:
+
+```text
+0.30000000000000004
+```
+
+This is normal floating-point behavior.
+
+For financial systems, don't blindly rely on floating-point arithmetic for exact currency calculations.
+
+---
+
+# 5. Complex Numbers
+
+Go supports complex numbers:
+
+```text
+complex64
+complex128
+```
+
+Example:
+
+```go
+var z complex128 = 2 + 3i
+
+fmt.Println(z)
+```
+
+Output:
+
+```text
+(2+3i)
+```
+
+You can also create one using:
+
+```go
+z := complex(2, 3)
+```
+
+---
+
+# 6. Strings
+
+A string represents text.
+
+Example:
+
+```go
+name := "Siam"
+```
+
+The type is:
+
+```go
+string
+```
+
+Example:
+
+```go
+var message string = "Hello, Go!"
+
+fmt.Println(message)
+```
+
+---
+
+# String Concatenation
+
+You can combine strings using `+`.
+
+```go
+firstName := "Md"
+lastName := "Siam"
+
+fullName := firstName + " " + lastName
+
+fmt.Println(fullName)
+```
+
+Output:
+
+```text
+Md Siam
+```
+
+---
+
+# String Length
+
+You can use:
+
+```go
+len()
+```
+
+Example:
+
+```go
+name := "Siam"
+
+fmt.Println(len(name))
+```
+
+Output:
+
+```text
+4
+```
+
+Be careful: `len()` returns the number of **bytes**, not necessarily the number of human-readable characters.
+
+We'll study strings, bytes, and runes in depth later.
+
+---
+
+# 7. Rune
+
+A `rune` is an alias for:
+
+```go
+int32
+```
+
+It is commonly used to represent a Unicode code point.
+
+Example:
+
+```go
+var r rune = 'A'
+
+fmt.Println(r)
+```
+
+Output:
+
+```text
+65
+```
+
+Notice the single quotes:
+
+```go
+'A'
+```
+
+This represents a rune.
+
+A string uses double quotes:
+
+```go
+"A"
+```
+
+These are different concepts.
+
+---
+
+# Rune Example
+
+```go
+r := 'A'
+
+fmt.Println(r)
+fmt.Printf("%c\n", r)
+```
+
+Output:
+
+```text
+65
+A
+```
+
+This is especially important when working with non-ASCII characters.
+
+---
+
+# 8. Byte
+
+A `byte` is an alias for:
+
+```go
+uint8
+```
+
+Example:
+
+```go
+var b byte = 65
+
+fmt.Println(b)
+```
+
+Output:
+
+```text
+65
+```
+
+You can convert it to a character:
+
+```go
+fmt.Printf("%c\n", b)
+```
+
+Output:
+
+```text
+A
+```
+
+---
+
+# 9. Array
+
+An array contains a fixed number of elements of the same type.
+
+Example:
+
+```go
+var numbers [5]int
+```
+
+This creates:
+
+```text
+[0 0 0 0 0]
+```
+
+You can initialize it:
+
+```go
+numbers := [5]int{10, 20, 30, 40, 50}
+```
+
+Access an element:
+
+```go
+fmt.Println(numbers[0])
+```
+
+Output:
+
+```text
+10
+```
+
+Arrays have a fixed length.
+
+We'll study arrays in detail later.
+
+---
+
+# 10. Slice
+
+A slice is a flexible, dynamic view over an underlying array.
+
+Example:
+
+```go
+numbers := []int{10, 20, 30}
+```
+
+You can append values:
+
+```go
+numbers = append(numbers, 40)
+```
+
+Now:
+
+```text
+[10 20 30 40]
+```
+
+Slices are extremely important in Go and are used much more frequently than arrays.
+
+---
+
+# 11. Map
+
+A map stores key-value pairs.
+
+Example:
+
+```go
+ages := map[string]int{
+    "Siam": 21,
+    "Rakib": 22,
+}
+```
+
+Access a value:
+
+```go
+fmt.Println(ages["Siam"])
+```
+
+Output:
+
+```text
+21
+```
+
+Maps are similar to hash tables or dictionaries in other languages.
+
+---
+
+# 12. Struct
+
+A struct allows you to group related data.
+
+Example:
+
+```go
+type User struct {
+    Name string
+    Age  int
+}
+```
+
+Create a value:
+
+```go
+user := User{
+    Name: "Siam",
+    Age:  21,
+}
+```
+
+Access fields:
+
+```go
+fmt.Println(user.Name)
+fmt.Println(user.Age)
+```
+
+Structs are one of the most important concepts in Go.
+
+---
+
+# 13. Pointer
+
+A pointer stores the memory address of another value.
+
+Example:
+
+```go
+age := 21
+
+ptr := &age
+```
+
+Here:
+
+```text
+age
+ ↓
+21
+
+ptr
+ ↓
+address of age
+```
+
+You can access the value through the pointer:
+
+```go
+fmt.Println(*ptr)
+```
+
+Output:
+
+```text
+21
+```
+
+Pointers will be explained in depth in a later chapter.
+
+---
+
+# 14. Nil
+
+Some Go types can have a special value:
+
+```go
+nil
+```
+
+`nil` generally means that there is no value associated with the reference-like value.
+
+For example:
+
+```go
+var ptr *int
+
+fmt.Println(ptr)
+```
+
+Output:
+
+```text
+<nil>
+```
+
+Slices, maps, pointers, channels, functions, and interfaces can have `nil` values.
+
+---
+
+# 15. Type Conversion
+
+Go does not automatically convert between different numeric types.
+
+For example:
+
+```go
+var x int = 10
+var y float64 = 20.5
+```
+
+This is not allowed:
+
+```go
+result := x + y
+```
+
+You need explicit conversion:
+
+```go
+result := float64(x) + y
+```
+
+---
+
+# Conversion Example
+
+```go
+age := 21
+
+price := 100.50
+
+result := float64(age) + price
+
+fmt.Println(result)
+```
+
+Output:
+
+```text
+121.5
+```
+
+---
+
+# 16. String to Integer
+
+The `strconv` package provides conversion functions.
+
+Example:
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    number, err := strconv.Atoi("123")
+
+    if err != nil {
+        fmt.Println("Invalid number")
+        return
+    }
+
+    fmt.Println(number)
+}
+```
+
+Output:
+
+```text
+123
+```
+
+We'll study `strconv` more deeply in the standard library section.
+
+---
+
+# 17. Type Aliases
+
+Go supports type aliases.
+
+Example:
+
+```go
+type ID = int
+```
+
+Now:
+
+```go
+var userID ID = 100
+```
+
+`ID` is an alias for `int`.
+
+This is different from defining a completely new type.
+
+---
+
+# 18. Defined Types
+
+You can define your own type:
+
+```go
+type UserID int
+```
+
+Now:
+
+```go
+var id UserID = 100
+```
+
+`UserID` is a distinct type from `int`.
+
+This becomes useful when designing safer APIs.
+
+---
+
+# 19. Checking Types
+
+You can use:
+
+```go
+fmt.Printf("%T\n", value)
+```
+
+Example:
+
+```go
+age := 21
+name := "Siam"
+
+fmt.Printf("%T\n", age)
+fmt.Printf("%T\n", name)
+```
+
+Output:
+
+```text
+int
+string
+```
+
+---
+
+# 20. Complete Example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    // Boolean
+    isDeveloper := true
+
+    // Integer
+    age := 21
+
+    // Floating point
+    salary := 50000.50
+
+    // String
+    name := "Siam"
+
+    // Rune
+    grade := 'A'
+
+    // Byte
+    letter := byte(65)
+
+    fmt.Println("Developer:", isDeveloper)
+    fmt.Println("Age:", age)
+    fmt.Println("Salary:", salary)
+    fmt.Println("Name:", name)
+    fmt.Println("Grade:", grade)
+    fmt.Println("Letter:", letter)
+}
+```
+
+---
+
+# Quick Type Reference
+
+| Type | Example | Used For |
+|---|---|---|
+| `bool` | `true` | True/false |
+| `int` | `21` | Whole numbers |
+| `int8` | `100` | Small integers |
+| `int16` | `1000` | Integers |
+| `int32` | `100000` | Integers |
+| `int64` | `1000000` | Large integers |
+| `uint` | `100` | Non-negative integers |
+| `float32` | `3.14` | Decimal numbers |
+| `float64` | `3.14159` | Decimal numbers |
+| `complex64` | `2+3i` | Complex numbers |
+| `complex128` | `2+3i` | Complex numbers |
+| `string` | `"Hello"` | Text |
+| `byte` | `65` | Raw bytes |
+| `rune` | `'A'` | Unicode code points |
+
+---
+
+# What You Should Remember
+
+The most important beginner types are:
+
+```text
+bool
+int
+float64
+string
+byte
+rune
+```
+
+And the most important composite types you'll soon learn are:
+
+```text
+array
+slice
+map
+struct
+pointer
+```
+
+Don't try to memorize every type immediately.
+
+Instead, understand **why each type exists and when to use it**.
+
+---
+
+# Practice
+
+Create a program containing:
+
+```text
+name       → string
+age        → int
+height     → float64
+isStudent  → bool
+grade      → rune
+```
+
+Print every value and use:
+
+```go
+fmt.Printf("%T\n", value)
+```
+
+to print its type.
+
+Then try converting:
+
+```text
+int → float64
+int → string
+string → int
+```
+
+The last two require functions from the `strconv` package.
+
+---
+
+# Next Lesson
+
+Now that you understand variables and data types, the next important concept is:
+
+**Type Conversion and Operators**
+
+You'll learn how Go performs calculations, comparisons, logical operations, and conversions between different types.

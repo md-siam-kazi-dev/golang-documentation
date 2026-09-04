@@ -1,0 +1,389 @@
+# If, Else If, and Else in Go
+
+Conditional statements allow a program to make decisions.
+
+For example:
+
+```text
+If age >= 18
+    ↓
+Adult
+
+Otherwise
+    ↓
+Minor
+```
+
+Go provides:
+
+- `if`
+- `else if`
+- `else`
+
+---
+
+# 1. Basic `if`
+
+Syntax:
+
+```go
+if condition {
+    // code
+}
+```
+
+Example:
+
+```go
+age := 21
+
+if age >= 18 {
+    fmt.Println("Adult")
+}
+```
+
+Output:
+
+```text
+Adult
+```
+
+---
+
+# 2. Boolean Conditions
+
+An `if` condition must produce a boolean value.
+
+```go
+isLoggedIn := true
+
+if isLoggedIn {
+    fmt.Println("Welcome")
+}
+```
+
+---
+
+# 3. `if` with Comparison
+
+```go
+number := 10
+
+if number > 5 {
+    fmt.Println("Number is greater than 5")
+}
+```
+
+---
+
+# 4. `if-else`
+
+Use `else` when you want to execute another block if the condition is false.
+
+```go
+age := 15
+
+if age >= 18 {
+    fmt.Println("Adult")
+} else {
+    fmt.Println("Minor")
+}
+```
+
+Output:
+
+```text
+Minor
+```
+
+---
+
+# 5. `else if`
+
+Use `else if` when there are multiple possible conditions.
+
+```go
+marks := 75
+
+if marks >= 80 {
+    fmt.Println("A+")
+} else if marks >= 70 {
+    fmt.Println("A")
+} else if marks >= 60 {
+    fmt.Println("B")
+} else if marks >= 50 {
+    fmt.Println("C")
+} else {
+    fmt.Println("Fail")
+}
+```
+
+Output:
+
+```text
+A
+```
+
+---
+
+# 6. Conditions Are Checked from Top to Bottom
+
+Consider:
+
+```go
+age := 25
+
+if age >= 18 {
+    fmt.Println("Adult")
+} else if age >= 21 {
+    fmt.Println("21 or older")
+}
+```
+
+Output:
+
+```text
+Adult
+```
+
+Why?
+
+The first condition is already true.
+
+The program doesn't continue checking the `else if`.
+
+Therefore, put more specific conditions first when necessary.
+
+---
+
+# 7. Logical AND
+
+You can combine conditions using `&&`.
+
+```go
+age := 25
+hasID := true
+
+if age >= 18 && hasID {
+    fmt.Println("Allowed")
+} else {
+    fmt.Println("Not allowed")
+}
+```
+
+---
+
+# 8. Logical OR
+
+Use `||` when either condition can be true.
+
+```go
+isAdmin := false
+isModerator := true
+
+if isAdmin || isModerator {
+    fmt.Println("Can manage content")
+}
+```
+
+---
+
+# 9. NOT Operator
+
+```go
+isLoggedIn := false
+
+if !isLoggedIn {
+    fmt.Println("Please login")
+}
+```
+
+---
+
+# 10. Short Statement in `if`
+
+Go allows a short statement before the condition.
+
+Syntax:
+
+```go
+if statement; condition {
+}
+```
+
+Example:
+
+```go
+if age := 20; age >= 18 {
+    fmt.Println("Adult")
+}
+```
+
+The variable `age` only exists inside the `if` statement and its associated blocks.
+
+---
+
+# 11. Real Example: Login
+
+```go
+username := "siam"
+password := "1234"
+
+if username == "siam" && password == "1234" {
+    fmt.Println("Login successful")
+} else {
+    fmt.Println("Invalid credentials")
+}
+```
+
+---
+
+# 12. Real Example: Even or Odd
+
+```go
+number := 17
+
+if number%2 == 0 {
+    fmt.Println("Even")
+} else {
+    fmt.Println("Odd")
+}
+```
+
+---
+
+# 13. Positive, Negative, or Zero
+
+```go
+number := -5
+
+if number > 0 {
+    fmt.Println("Positive")
+} else if number < 0 {
+    fmt.Println("Negative")
+} else {
+    fmt.Println("Zero")
+}
+```
+
+---
+
+# 14. Grade Calculator
+
+```go
+marks := 85
+
+if marks >= 80 {
+    fmt.Println("A+")
+} else if marks >= 70 {
+    fmt.Println("A")
+} else if marks >= 60 {
+    fmt.Println("B")
+} else if marks >= 50 {
+    fmt.Println("C")
+} else if marks >= 40 {
+    fmt.Println("D")
+} else {
+    fmt.Println("F")
+}
+```
+
+---
+
+# 15. Nested If
+
+An `if` can exist inside another `if`.
+
+```go
+age := 20
+hasID := true
+
+if age >= 18 {
+    if hasID {
+        fmt.Println("Entry allowed")
+    } else {
+        fmt.Println("ID required")
+    }
+} else {
+    fmt.Println("Underage")
+}
+```
+
+Nested conditions are useful, but too much nesting can make code difficult to read.
+
+---
+
+# 16. Checking Multiple Conditions
+
+```go
+age := 25
+salary := 50000
+
+if age >= 18 && salary >= 30000 {
+    fmt.Println("Eligible")
+}
+```
+
+---
+
+# 17. Common Mistake
+
+Don't use assignment when you mean comparison.
+
+Wrong:
+
+```go
+if age = 18 {
+}
+```
+
+Correct:
+
+```go
+if age == 18 {
+}
+```
+
+Remember:
+
+```text
+=   assignment
+==  comparison
+```
+
+---
+
+# 18. No Parentheses Required
+
+Unlike some languages, Go does not require parentheses around the condition.
+
+Correct:
+
+```go
+if age >= 18 {
+    fmt.Println("Adult")
+}
+```
+
+This is unnecessary:
+
+```go
+if (age >= 18) {
+}
+```
+
+Parentheses can still be used when they improve readability for complex expressions.
+
+---
+
+# Key Takeaways
+
+- `if` executes code when a condition is true.
+- `else` executes when the condition is false.
+- `else if` allows multiple conditions.
+- Conditions must evaluate to `bool`.
+- Use `&&` for AND.
+- Use `||` for OR.
+- Use `!` for NOT.
+- Go does not require parentheses around `if` conditions.
+- Conditions are evaluated from top to bottom.

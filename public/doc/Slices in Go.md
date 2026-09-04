@@ -1,0 +1,1097 @@
+# Slices in Go
+
+A **slice** is a flexible, dynamic view of an underlying array.
+
+Slices are one of the most important data structures in Go.
+
+If you are building Go APIs, backend applications, or solving LeetCode and Codeforces problems, you will use slices constantly.
+
+---
+
+# 1. Why Do We Need Slices?
+
+Arrays have a fixed size.
+
+```go
+numbers := [3]int{10, 20, 30}
+```
+
+You cannot make this array become length 4.
+
+Slices solve this problem.
+
+```go
+numbers := []int{10, 20, 30}
+
+numbers = append(numbers, 40)
+```
+
+Now:
+
+```text
+[10 20 30 40]
+```
+
+The slice can grow.
+
+---
+
+# 2. Creating a Slice
+
+The simplest syntax is:
+
+```go
+numbers := []int{10, 20, 30}
+```
+
+Notice:
+
+```go
+[3]int
+```
+
+is an array.
+
+But:
+
+```go
+[]int
+```
+
+is a slice.
+
+The slice does not specify a fixed length.
+
+---
+
+# 3. Empty Slice
+
+You can create an empty slice:
+
+```go
+var numbers []int
+```
+
+Its value is:
+
+```text
+nil
+```
+
+You can still append to it:
+
+```go
+numbers = append(numbers, 10)
+numbers = append(numbers, 20)
+
+fmt.Println(numbers)
+```
+
+Output:
+
+```text
+[10 20]
+```
+
+---
+
+# 4. Using `make`
+
+Another common way:
+
+```go
+numbers := make([]int, 5)
+```
+
+This creates a slice with length 5.
+
+```go
+fmt.Println(numbers)
+```
+
+Output:
+
+```text
+[0 0 0 0 0]
+```
+
+---
+
+# 5. Length and Capacity
+
+Slices have two important properties:
+
+```text
+length
+capacity
+```
+
+Use:
+
+```go
+len(numbers)
+```
+
+for length.
+
+Use:
+
+```go
+cap(numbers)
+```
+
+for capacity.
+
+Example:
+
+```go
+numbers := make([]int, 3, 5)
+
+fmt.Println(len(numbers))
+fmt.Println(cap(numbers))
+```
+
+Output:
+
+```text
+3
+5
+```
+
+So:
+
+```text
+length  = 3
+capacity = 5
+```
+
+---
+
+# 6. Understanding Length
+
+Length means:
+
+> How many elements are currently in the slice?
+
+Example:
+
+```go
+numbers := []int{10, 20, 30}
+
+fmt.Println(len(numbers))
+```
+
+Output:
+
+```text
+3
+```
+
+---
+
+# 7. Understanding Capacity
+
+Capacity means approximately:
+
+> How much space is available in the slice's underlying array before it needs to grow?
+
+Example:
+
+```go
+numbers := make([]int, 3, 10)
+
+fmt.Println(len(numbers))
+fmt.Println(cap(numbers))
+```
+
+Output:
+
+```text
+3
+10
+```
+
+The slice currently contains 3 elements, but its underlying storage has capacity for 10 elements.
+
+---
+
+# 8. Accessing Slice Elements
+
+Just like arrays:
+
+```go
+numbers := []int{10, 20, 30}
+
+fmt.Println(numbers[0])
+fmt.Println(numbers[2])
+```
+
+Output:
+
+```text
+10
+30
+```
+
+---
+
+# 9. Updating a Slice
+
+```go
+numbers := []int{10, 20, 30}
+
+numbers[1] = 100
+
+fmt.Println(numbers)
+```
+
+Output:
+
+```text
+[10 100 30]
+```
+
+---
+
+# 10. Appending Elements
+
+Use the built-in `append()` function.
+
+```go
+numbers := []int{10, 20, 30}
+
+numbers = append(numbers, 40)
+
+fmt.Println(numbers)
+```
+
+Output:
+
+```text
+[10 20 30 40]
+```
+
+---
+
+# 11. Append Multiple Elements
+
+```go
+numbers = append(numbers, 40, 50, 60)
+```
+
+Now:
+
+```text
+[10 20 30 40 50 60]
+```
+
+---
+
+# 12. Why Do We Assign `append()` Back?
+
+This is important:
+
+```go
+numbers = append(numbers, 40)
+```
+
+not:
+
+```go
+append(numbers, 40)
+```
+
+The `append()` function returns the resulting slice.
+
+So we normally assign it back:
+
+```go
+numbers = append(numbers, 40)
+```
+
+---
+
+# 13. Appending One Slice to Another
+
+Suppose:
+
+```go
+a := []int{1, 2, 3}
+b := []int{4, 5, 6}
+```
+
+To append all elements of `b` to `a`:
+
+```go
+a = append(a, b...)
+```
+
+Output:
+
+```text
+[1 2 3 4 5 6]
+```
+
+The `...` expands the second slice.
+
+---
+
+# 14. Slicing a Slice
+
+This is one of the most important slice operations.
+
+Suppose:
+
+```go
+numbers := []int{10, 20, 30, 40, 50}
+```
+
+We can create a slice from it:
+
+```go
+part := numbers[1:4]
+```
+
+Output:
+
+```text
+[20 30 40]
+```
+
+The syntax is:
+
+```go
+slice[start:end]
+```
+
+Important:
+
+> `start` is included, `end` is excluded.
+
+So:
+
+```go
+numbers[1:4]
+```
+
+means:
+
+```text
+index 1
+index 2
+index 3
+```
+
+---
+
+# 15. More Slicing Examples
+
+```go
+numbers := []int{10, 20, 30, 40, 50}
+```
+
+From index 0 to 2:
+
+```go
+numbers[0:2]
+```
+
+Result:
+
+```text
+[10 20]
+```
+
+From index 2 to end:
+
+```go
+numbers[2:]
+```
+
+Result:
+
+```text
+[30 40 50]
+```
+
+From beginning to index 3:
+
+```go
+numbers[:3]
+```
+
+Result:
+
+```text
+[10 20 30]
+```
+
+Copy the entire slice:
+
+```go
+numbers[:]
+```
+
+---
+
+# 16. A Slice Shares the Underlying Array
+
+This is extremely important.
+
+Consider:
+
+```go
+numbers := []int{10, 20, 30, 40, 50}
+
+part := numbers[1:4]
+
+part[0] = 100
+
+fmt.Println(numbers)
+fmt.Println(part)
+```
+
+Output:
+
+```text
+[10 100 30 40 50]
+[100 30 40]
+```
+
+Why did changing `part` change `numbers`?
+
+Because the slice `part` is a view into the same underlying array.
+
+Conceptually:
+
+```text
+Underlying array:
+
+[10 20 30 40 50]
+     ↑        ↑
+     └─ part ─┘
+```
+
+Both refer to the same storage.
+
+---
+
+# 17. Slice Length vs Capacity After Slicing
+
+Consider:
+
+```go
+numbers := []int{10, 20, 30, 40, 50}
+
+part := numbers[1:3]
+
+fmt.Println(len(part))
+fmt.Println(cap(part))
+```
+
+The length is:
+
+```text
+2
+```
+
+because it contains:
+
+```text
+20 30
+```
+
+Its capacity is related to how much of the underlying array is available from the slice's starting position.
+
+---
+
+# 18. `append()` Can Affect Other Slices
+
+Because slices can share an underlying array, you need to understand `append()` carefully.
+
+Example:
+
+```go
+numbers := []int{10, 20, 30, 40, 50}
+
+part := numbers[:2]
+
+part = append(part, 100)
+
+fmt.Println(numbers)
+fmt.Println(part)
+```
+
+Depending on the available capacity, the append may reuse the underlying array.
+
+This is why slice aliasing is important when writing performance-sensitive code.
+
+---
+
+# 19. Creating an Independent Copy
+
+If you don't want two slices to share data, use `copy()`.
+
+```go
+numbers := []int{10, 20, 30}
+
+copyNumbers := make([]int, len(numbers))
+
+copy(copyNumbers, numbers)
+```
+
+Now:
+
+```go
+copyNumbers[0] = 100
+```
+
+does not change `numbers`.
+
+```go
+fmt.Println(numbers)
+fmt.Println(copyNumbers)
+```
+
+Output:
+
+```text
+[10 20 30]
+[100 20 30]
+```
+
+---
+
+# 20. Using `slices.Clone`
+
+Modern Go also provides:
+
+```go
+copyNumbers := slices.Clone(numbers)
+```
+
+You need:
+
+```go
+import "slices"
+```
+
+This creates an independent copy.
+
+---
+
+# 21. Looping Through a Slice
+
+Normal `for` loop:
+
+```go
+numbers := []int{10, 20, 30}
+
+for i := 0; i < len(numbers); i++ {
+	fmt.Println(numbers[i])
+}
+```
+
+Using `range`:
+
+```go
+for index, value := range numbers {
+	fmt.Println(index, value)
+}
+```
+
+Only values:
+
+```go
+for _, value := range numbers {
+	fmt.Println(value)
+}
+```
+
+---
+
+# 22. Removing an Element
+
+Go does not have a built-in `remove()` method.
+
+Suppose:
+
+```go
+numbers := []int{10, 20, 30, 40, 50}
+```
+
+Remove index `2`:
+
+```go
+numbers = append(numbers[:2], numbers[3:]...)
+```
+
+Result:
+
+```text
+[10 20 40 50]
+```
+
+Explanation:
+
+```text
+numbers[:2]
+→ [10 20]
+
+numbers[3:]
+→ [40 50]
+
+append them
+→ [10 20 40 50]
+```
+
+---
+
+# 23. Removing the Last Element
+
+Very common:
+
+```go
+numbers = numbers[:len(numbers)-1]
+```
+
+Example:
+
+```go
+numbers := []int{10, 20, 30}
+
+numbers = numbers[:len(numbers)-1]
+
+fmt.Println(numbers)
+```
+
+Output:
+
+```text
+[10 20]
+```
+
+---
+
+# 24. Stack Using a Slice
+
+Slices are perfect for implementing a stack.
+
+Push:
+
+```go
+stack = append(stack, value)
+```
+
+Pop:
+
+```go
+value := stack[len(stack)-1]
+stack = stack[:len(stack)-1]
+```
+
+Example:
+
+```go
+stack := []int{}
+
+stack = append(stack, 10)
+stack = append(stack, 20)
+stack = append(stack, 30)
+
+top := stack[len(stack)-1]
+
+stack = stack[:len(stack)-1]
+
+fmt.Println(top)
+fmt.Println(stack)
+```
+
+Output:
+
+```text
+30
+[10 20]
+```
+
+---
+
+# 25. Slice of Strings
+
+```go
+names := []string{
+	"Siam",
+	"Rakib",
+	"Sobuj",
+}
+
+names = append(names, "Hasan")
+
+fmt.Println(names)
+```
+
+Output:
+
+```text
+[Siam Rakib Sobuj Hasan]
+```
+
+---
+
+# 26. Slice of Structs
+
+Slices are extremely common with structs.
+
+```go
+type User struct {
+	ID   int
+	Name string
+}
+```
+
+Create:
+
+```go
+users := []User{
+	{ID: 1, Name: "Siam"},
+	{ID: 2, Name: "Rakib"},
+}
+```
+
+Append:
+
+```go
+users = append(users, User{
+	ID:   3,
+	Name: "Sobuj",
+})
+```
+
+---
+
+# 27. Slice as a Function Parameter
+
+Slices are commonly passed to functions.
+
+```go
+func printNumbers(numbers []int) {
+	for _, n := range numbers {
+		fmt.Println(n)
+	}
+}
+```
+
+Call:
+
+```go
+numbers := []int{10, 20, 30}
+
+printNumbers(numbers)
+```
+
+Unlike arrays, the slice descriptor is passed by value but refers to underlying storage. Changes to existing elements are visible through shared backing storage.
+
+---
+
+# 28. Modifying a Slice Inside a Function
+
+```go
+func change(numbers []int) {
+	numbers[0] = 100
+}
+
+func main() {
+	numbers := []int{10, 20, 30}
+
+	change(numbers)
+
+	fmt.Println(numbers)
+}
+```
+
+Output:
+
+```text
+[100 20 30]
+```
+
+The underlying array is shared.
+
+---
+
+# 29. Appending Inside a Function
+
+Be careful with `append()`.
+
+A slice itself contains information such as:
+
+```text
+pointer to underlying array
+length
+capacity
+```
+
+When passed to a function, that slice header is copied.
+
+Example:
+
+```go
+func add(numbers []int) {
+	numbers = append(numbers, 100)
+}
+```
+
+If the caller needs the updated slice length, return it:
+
+```go
+func add(numbers []int) []int {
+	numbers = append(numbers, 100)
+
+	return numbers
+}
+```
+
+Then:
+
+```go
+numbers = add(numbers)
+```
+
+This is a very important Go pattern.
+
+---
+
+# 30. Nil Slice
+
+This is valid:
+
+```go
+var numbers []int
+```
+
+The slice is nil:
+
+```go
+fmt.Println(numbers == nil)
+```
+
+Output:
+
+```text
+true
+```
+
+You can still append:
+
+```go
+numbers = append(numbers, 10)
+```
+
+Now it is no longer nil.
+
+---
+
+# 31. Empty Slice vs Nil Slice
+
+These can look similar when printed:
+
+```go
+var a []int
+```
+
+and:
+
+```go
+b := []int{}
+```
+
+Both have length:
+
+```text
+0
+```
+
+But:
+
+```go
+a == nil
+```
+
+is:
+
+```text
+true
+```
+
+while:
+
+```go
+b == nil
+```
+
+is:
+
+```text
+false
+```
+
+This distinction can matter when working with JSON and APIs.
+
+---
+
+# 32. Two-Dimensional Slices
+
+You can create a 2D slice:
+
+```go
+matrix := [][]int{
+	{1, 2, 3},
+	{4, 5, 6},
+}
+```
+
+Unlike a fixed 2D array, each row can have a different length.
+
+```go
+matrix := [][]int{
+	{1, 2},
+	{3, 4, 5},
+	{6},
+}
+```
+
+This is called a **jagged** or irregular 2D slice.
+
+---
+
+# 33. Practical Example: Filtering
+
+Suppose:
+
+```go
+numbers := []int{1, 2, 3, 4, 5, 6}
+```
+
+We want only even numbers:
+
+```go
+var even []int
+
+for _, n := range numbers {
+	if n%2 == 0 {
+		even = append(even, n)
+	}
+}
+
+fmt.Println(even)
+```
+
+Output:
+
+```text
+[2 4 6]
+```
+
+This pattern appears frequently in real programs.
+
+---
+
+# 34. Practical Example: Building a Result
+
+Imagine retrieving users from a database:
+
+```go
+users := []User{}
+
+users = append(users, User{
+	ID:   1,
+	Name: "Siam",
+})
+
+users = append(users, User{
+	ID:   2,
+	Name: "Rakib",
+})
+```
+
+Eventually:
+
+```text
+[
+	{1 Siam},
+	{2 Rakib}
+]
+```
+
+This is exactly the kind of data structure you'll commonly return from a Go API.
+
+---
+
+# 35. Slice vs Array
+
+| Feature | Array | Slice |
+|---|---|---|
+| Length | Fixed | Dynamic |
+| Syntax | `[5]int` | `[]int` |
+| Can append | No | Yes |
+| Common in Go | Sometimes | Very common |
+| Can grow | No | Yes |
+| Underlying array | It is the array | Refers to an array |
+
+Remember:
+
+> Arrays are fixed-size values. Slices are flexible views over arrays.
+
+---
+
+# Summary
+
+Create a slice:
+
+```go
+numbers := []int{10, 20, 30}
+```
+
+Append:
+
+```go
+numbers = append(numbers, 40)
+```
+
+Length:
+
+```go
+len(numbers)
+```
+
+Capacity:
+
+```go
+cap(numbers)
+```
+
+Slice:
+
+```go
+numbers[1:3]
+```
+
+Copy:
+
+```go
+copy(destination, source)
+```
+
+Remove last:
+
+```go
+numbers = numbers[:len(numbers)-1]
+```
+
+Pass a slice:
+
+```go
+func process(numbers []int)
+```
+
+Slices are one of the most important Go concepts to master before moving into maps, structs, algorithms, and backend development.

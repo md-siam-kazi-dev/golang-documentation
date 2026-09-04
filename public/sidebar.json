@@ -1,0 +1,290 @@
+{
+  "title": "Go Documentation",
+  "levels": [
+    {
+      "title": "Go - Fundamentals",
+      "topics": {
+        "one": "Introduction to Go",
+        "two": "Installation & Setup",
+        "three": "Your First Go Program",
+        "four": "Go Program Structure",
+        "five": "Variables",
+        "six": "Constants",
+        "seven": "Data Types",
+        "eight": "Type Conversion",
+        "nine": "Operators",
+        "ten": "Input & Output",
+        "eleven": "If / Else",
+        "twelve": "Switch",
+        "thirteen": "For Loops"
+      }
+    },
+    {
+      "title": "Go - Core Programming",
+      "topics": {
+        "one": "Functions",
+        "two": "Multiple Return Values",
+        "three": "Variadic Functions",
+        "four": "Anonymous Functions & Closures",
+        "five": "Arrays",
+        "six": "Slices",
+        "seven": "Strings",
+        "eight": "Runes & Bytes",
+        "nine": "Maps",
+        "ten": "Structs",
+        "eleven": "Pointers",
+        "twelve": "Methods",
+        "thirteen": "Packages",
+        "fourteen": "Go Modules"
+      }
+    },
+    {
+      "title": "Go - Advanced Language Features",
+      "topics": {
+        "one": "Interfaces",
+        "two": "Empty Interface",
+        "three": "Type Assertions",
+        "four": "Type Switch",
+        "five": "Embedding",
+        "six": "Error Handling",
+        "seven": "Custom Error",
+        "eight": "Panic & Recover",
+        "nine": "Defer",
+        "ten": "Generics",
+        "eleven": "Generic Functions",
+        "twelve": "Generic Types",
+        "thirteen": "Reflection",
+        "fourteen": "The unsafe Package"
+      }
+    },
+    {
+      "title": "Go - Concurrency",
+      "topics": {
+        "one": "Goroutines",
+        "two": "Channels",
+        "three": "Buffered Channels",
+        "four": "Unbuffered Channels",
+        "five": "Channel Direction",
+        "six": "Select",
+        "seven": "WaitGroup",
+        "eight": "Mutex",
+        "nine": "RWMutex",
+        "ten": "Once",
+        "eleven": "Atomic Operations",
+        "twelve": "Context",
+        "thirteen": "Race Conditions",
+        "fourteen": "Deadlocks",
+        "fifteen": "Concurrency Patterns"
+      }
+    },
+    {
+      "title": "Go - Standard Library",
+      "topics": {
+        "one": "fmt",
+        "two": "strings",
+        "three": "strconv",
+        "four": "math",
+        "five": "time",
+        "six": "os",
+        "seven": "io",
+        "eight": "bufio",
+        "nine": "path / filepath",
+        "ten": "encoding/json",
+        "eleven": "regexp",
+        "twelve": "sort",
+        "thirteen": "container/list",
+        "fourteen": "container/heap",
+        "fifteen": "sync"
+      }
+    },
+    {
+      "title": "Go - File & Data Handling",
+      "topics": {
+        "one": "File Handling",
+        "two": "Reading Files",
+        "three": "Writing Files",
+        "four": "Directories",
+        "five": "CSV Files",
+        "six": "JSON",
+        "seven": "XML",
+        "eight": "Serialization",
+        "nine": "Environment Variables",
+        "ten": "Configuration Files"
+      }
+    },
+    {
+      "title": "Go - Testing",
+      "topics": {
+        "one": "Introduction to Testing",
+        "two": "Unit Testing",
+        "three": "Table-Driven Tests",
+        "four": "Test Packages",
+        "five": "Subtests",
+        "six": "Test Helpers",
+        "seven": "Mocks",
+        "eight": "Benchmarks",
+        "nine": "Fuzz Testing",
+        "ten": "Code Coverage"
+      }
+    },
+    {
+      "title": "Go - HTTP & Networking",
+      "topics": {
+        "one": "HTTP Fundamentals",
+        "two": "net/http",
+        "three": "HTTP Server",
+        "four": "HTTP Client",
+        "five": "Request & Response",
+        "six": "Headers",
+        "seven": "Cookies",
+        "eight": "Query Parameters",
+        "nine": "Path Parameters",
+        "ten": "Middleware",
+        "eleven": "TCP Networking",
+        "twelve": "UDP Networking",
+        "thirteen": "WebSockets"
+      }
+    },
+    {
+      "title": "Go - REST API Development",
+      "topics": {
+        "one": "REST API Fundamentals",
+        "two": "API Routing",
+        "three": "CRUD APIs",
+        "four": "Request Validation",
+        "five": "JSON API Design",
+        "six": "HTTP Status Codes",
+        "seven": "Error Responses",
+        "eight": "Middleware",
+        "nine": "Authentication",
+        "ten": "JWT Authentication",
+        "eleven": "Authorization",
+        "twelve": "Rate Limiting",
+        "thirteen": "API Versioning",
+        "fourteen": "API Documentation"
+      }
+    },
+    {
+      "title": "Go - Database Programming",
+      "topics": {
+        "one": "Database Fundamentals",
+        "two": "database/sql",
+        "three": "Connecting PostgreSQL",
+        "four": "CRUD with PostgreSQL",
+        "five": "Queries & Parameters",
+        "six": "Transactions",
+        "seven": "Connection Pooling",
+        "eight": "Prepared Statements",
+        "nine": "Joins",
+        "ten": "Indexes",
+        "eleven": "Migrations",
+        "twelve": "pgx",
+        "thirteen": "ORM Concepts",
+        "fourteen": "Database Architecture"
+      }
+    },
+    {
+      "title": "Go - Backend Architecture",
+      "topics": {
+        "one": "Project Structure",
+        "two": "Layered Architecture",
+        "three": "Modular Architecture",
+        "four": "Clean Architecture",
+        "five": "Repository Pattern",
+        "six": "Service Layer",
+        "seven": "Dependency Injection",
+        "eight": "Configuration Management",
+        "nine": "Logging",
+        "ten": "Error Architecture",
+        "eleven": "Authentication Architecture",
+        "twelve": "Scalable Backend Design"
+      }
+    },
+    {
+      "title": "Go - Production Development",
+      "topics": {
+        "one": "Environment Management",
+        "two": "Graceful Shutdown",
+        "three": "Health Checks",
+        "four": "Structured Logging",
+        "five": "Metrics",
+        "six": "Tracing",
+        "seven": "Monitoring",
+        "eight": "Docker with Go",
+        "nine": "CI/CD",
+        "ten": "Deployment",
+        "eleven": "Production Security",
+        "twelve": "Production Checklist"
+      }
+    },
+    {
+      "title": "Go - Performance & Internals",
+      "topics": {
+        "one": "Go Runtime",
+        "two": "Memory Management",
+        "three": "Stack & Heap",
+        "four": "Escape Analysis",
+        "five": "Garbage Collector",
+        "six": "Garbage Collection Tuning",
+        "seven": "CPU Profiling",
+        "eight": "Memory Profiling",
+        "nine": "pprof",
+        "ten": "Benchmarking",
+        "eleven": "Compiler Optimizations",
+        "twelve": "Performance Optimization"
+      }
+    },
+    {
+      "title": "Go - Runtime & Concurrency Internals",
+      "topics": {
+        "one": "Goroutine Scheduler",
+        "two": "G-M-P Model",
+        "three": "Work Stealing",
+        "four": "Stack Growth",
+        "five": "Channel Internals",
+        "six": "Mutex Internals",
+        "seven": "Memory Model",
+        "eight": "Happens-Before",
+        "nine": "Atomic Memory Operations",
+        "ten": "Advanced Concurrency Design"
+      }
+    },
+    {
+      "title": "Go - Distributed Systems",
+      "topics": {
+        "one": "Distributed Systems Fundamentals",
+        "two": "RPC",
+        "three": "gRPC",
+        "four": "Service Discovery",
+        "five": "Load Balancing",
+        "six": "Caching",
+        "seven": "Redis with Go",
+        "eight": "Message Queues",
+        "nine": "Event-Driven Architecture",
+        "ten": "Kafka with Go",
+        "eleven": "Distributed Transactions",
+        "twelve": "Consistency & Availability"
+      }
+    },
+    {
+      "title": "Go - Mastery",
+      "topics": {
+        "one": "Go Design Patterns",
+        "two": "Advanced API Design",
+        "three": "Advanced Concurrency",
+        "four": "Advanced Networking",
+        "five": "Compiler Internals",
+        "six": "Runtime Internals",
+        "seven": "Memory Model Deep Dive",
+        "eight": "Performance Engineering",
+        "nine": "Large-Scale Go Systems",
+        "ten": "Distributed Go Systems",
+        "eleven": "Production-Grade Go",
+        "twelve": "Building Go Libraries",
+        "thirteen": "Building Go CLI Tools",
+        "fourteen": "Building Go Microservices",
+        "fifteen": "Go Expert Projects"
+      }
+    }
+  ]
+}

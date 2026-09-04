@@ -1,0 +1,759 @@
+# Maps in Go
+
+A **map** is a collection of key-value pairs.
+
+You can think of a map like a dictionary:
+
+```text
+Key        Value
+----------------
+name       Siam
+age        21
+country    Bangladesh
+```
+
+Maps are extremely important in Go and are commonly used for:
+
+- Fast lookup
+- Frequency counting
+- Caching
+- Storing relationships
+- JSON data
+- Grouping data
+- Database-related logic
+
+---
+
+# 1. Creating a Map
+
+Basic syntax:
+
+```go
+var ages map[string]int
+```
+
+But this creates a nil map.
+
+You normally create a map using `make`:
+
+```go
+ages := make(map[string]int)
+```
+
+Now you can add values.
+
+---
+
+# 2. Adding Values
+
+```go
+ages := make(map[string]int)
+
+ages["Siam"] = 21
+ages["Rahim"] = 25
+ages["Karim"] = 30
+
+fmt.Println(ages)
+```
+
+---
+
+# 3. Map Literal
+
+You can create and initialize a map directly:
+
+```go
+ages := map[string]int{
+    "Siam":  21,
+    "Rahim": 25,
+    "Karim": 30,
+}
+```
+
+This is very common.
+
+---
+
+# 4. Reading a Value
+
+```go
+ages := map[string]int{
+    "Siam": 21,
+}
+
+fmt.Println(ages["Siam"])
+```
+
+Output:
+
+```text
+21
+```
+
+---
+
+# 5. What Happens If Key Doesn't Exist?
+
+```go
+ages := map[string]int{
+    "Siam": 21,
+}
+
+fmt.Println(ages["Rahim"])
+```
+
+Output:
+
+```text
+0
+```
+
+Because the value type is `int`, its zero value is `0`.
+
+But this creates an important problem.
+
+How do we know whether:
+
+```text
+Rahim doesn't exist
+```
+
+or:
+
+```text
+Rahim exists and has value 0
+```
+
+We use the **comma-ok pattern**.
+
+---
+
+# 6. Checking If a Key Exists
+
+```go
+age, ok := ages["Siam"]
+
+if ok {
+    fmt.Println("Found:", age)
+} else {
+    fmt.Println("Not found")
+}
+```
+
+`ok` is:
+
+```text
+true  → key exists
+false → key doesn't exist
+```
+
+Example:
+
+```go
+age, ok := ages["Rahim"]
+
+if !ok {
+    fmt.Println("Rahim not found")
+}
+```
+
+---
+
+# 7. Delete From Map
+
+Use:
+
+```go
+delete(ages, "Siam")
+```
+
+Example:
+
+```go
+ages := map[string]int{
+    "Siam":  21,
+    "Rahim": 25,
+}
+
+delete(ages, "Siam")
+
+fmt.Println(ages)
+```
+
+---
+
+# 8. Map Length
+
+Use:
+
+```go
+len(ages)
+```
+
+Example:
+
+```go
+ages := map[string]int{
+    "Siam":  21,
+    "Rahim": 25,
+}
+
+fmt.Println(len(ages))
+```
+
+Output:
+
+```text
+2
+```
+
+---
+
+# 9. Loop Through a Map
+
+Use `range`:
+
+```go
+ages := map[string]int{
+    "Siam":  21,
+    "Rahim": 25,
+    "Karim": 30,
+}
+
+for name, age := range ages {
+    fmt.Println(name, age)
+}
+```
+
+Important:
+
+> Map iteration order is not guaranteed.
+
+Do not depend on the order.
+
+---
+
+# 10. Loop Only Over Keys
+
+```go
+for name := range ages {
+    fmt.Println(name)
+}
+```
+
+---
+
+# 11. Loop Only Over Values
+
+You can ignore the key:
+
+```go
+for _, age := range ages {
+    fmt.Println(age)
+}
+```
+
+---
+
+# 12. Updating a Map
+
+```go
+ages := map[string]int{
+    "Siam": 21,
+}
+
+ages["Siam"] = 22
+
+fmt.Println(ages["Siam"])
+```
+
+Output:
+
+```text
+22
+```
+
+---
+
+# 13. Map With String Values
+
+```go
+users := map[string]string{
+    "name":    "Siam",
+    "country": "Bangladesh",
+    "role":    "Developer",
+}
+```
+
+---
+
+# 14. Map With Slice Values
+
+A map value can be a slice.
+
+```go
+students := map[string][]string{
+    "CSE": {
+        "Siam",
+        "Rahim",
+        "Karim",
+    },
+}
+```
+
+Access:
+
+```go
+fmt.Println(students["CSE"])
+```
+
+---
+
+# 15. Map of Maps
+
+Maps can contain other maps.
+
+```go
+users := map[string]map[string]string{
+    "user1": {
+        "name": "Siam",
+        "role": "admin",
+    },
+}
+```
+
+Access:
+
+```go
+fmt.Println(users["user1"]["name"])
+```
+
+Output:
+
+```text
+Siam
+```
+
+---
+
+# 16. Frequency Counting
+
+This is one of the most important uses of maps.
+
+Suppose:
+
+```text
+apple banana apple orange banana apple
+```
+
+We want:
+
+```text
+apple  → 3
+banana → 2
+orange → 1
+```
+
+Code:
+
+```go
+words := []string{
+    "apple",
+    "banana",
+    "apple",
+    "orange",
+    "banana",
+    "apple",
+}
+
+freq := make(map[string]int)
+
+for _, word := range words {
+    freq[word]++
+}
+
+fmt.Println(freq)
+```
+
+---
+
+# 17. Character Frequency
+
+```go
+text := "hello"
+
+freq := make(map[rune]int)
+
+for _, r := range text {
+    freq[r]++
+}
+
+fmt.Println(freq)
+```
+
+This is useful in many LeetCode problems.
+
+---
+
+# 18. Integer Frequency
+
+```go
+nums := []int{1, 2, 2, 3, 1, 1}
+
+freq := make(map[int]int)
+
+for _, num := range nums {
+    freq[num]++
+}
+
+fmt.Println(freq)
+```
+
+Result:
+
+```text
+1 → 3
+2 → 2
+3 → 1
+```
+
+---
+
+# 19. Map as a Set
+
+Go doesn't have a built-in `Set` type.
+
+A common solution is:
+
+```go
+set := make(map[int]bool)
+```
+
+Add:
+
+```go
+set[10] = true
+set[20] = true
+```
+
+Check:
+
+```go
+if set[10] {
+    fmt.Println("Exists")
+}
+```
+
+A cleaner pattern is:
+
+```go
+set := make(map[int]struct{})
+
+set[10] = struct{}{}
+set[20] = struct{}{}
+```
+
+Check:
+
+```go
+_, exists := set[10]
+
+if exists {
+    fmt.Println("Exists")
+}
+```
+
+---
+
+# 20. Why struct{}?
+
+`struct{}` is an empty struct.
+
+It contains no fields and therefore communicates:
+
+> I only care whether the key exists.
+
+Example:
+
+```go
+visited := make(map[int]struct{})
+
+visited[1] = struct{}{}
+visited[2] = struct{}{}
+```
+
+This pattern is common in Go.
+
+---
+
+# 21. Nil Map
+
+Consider:
+
+```go
+var users map[string]int
+
+fmt.Println(users)
+```
+
+This is a nil map.
+
+You can read from it:
+
+```go
+fmt.Println(users["Siam"])
+```
+
+But you cannot write to it:
+
+```go
+users["Siam"] = 21
+```
+
+This causes a panic.
+
+You need:
+
+```go
+users = make(map[string]int)
+```
+
+first.
+
+---
+
+# 22. Map Is Reference-Like
+
+Consider:
+
+```go
+a := map[string]int{
+    "x": 10,
+}
+
+b := a
+
+b["x"] = 100
+
+fmt.Println(a["x"])
+```
+
+Output:
+
+```text
+100
+```
+
+Why?
+
+Because `a` and `b` refer to the same underlying map data.
+
+---
+
+# 23. Copying a Map
+
+If you want an independent copy:
+
+```go
+original := map[string]int{
+    "a": 10,
+    "b": 20,
+}
+
+copyMap := make(map[string]int)
+
+for key, value := range original {
+    copyMap[key] = value
+}
+```
+
+Now:
+
+```go
+copyMap["a"] = 100
+
+fmt.Println(original["a"])
+```
+
+Output:
+
+```text
+10
+```
+
+---
+
+# 24. Maps as Function Arguments
+
+```go
+func update(m map[string]int) {
+    m["age"] = 22
+}
+
+func main() {
+    user := map[string]int{
+        "age": 21,
+    }
+
+    update(user)
+
+    fmt.Println(user["age"])
+}
+```
+
+Output:
+
+```text
+22
+```
+
+---
+
+# 25. Map With Struct Values
+
+```go
+type User struct {
+    Name string
+    Age  int
+}
+
+users := map[int]User{
+    1: {
+        Name: "Siam",
+        Age:  21,
+    },
+}
+```
+
+Access:
+
+```go
+fmt.Println(users[1].Name)
+```
+
+---
+
+# 26. Practical Example: Two Sum
+
+Maps are extremely useful in algorithm problems.
+
+```go
+func twoSum(nums []int, target int) []int {
+    seen := make(map[int]int)
+
+    for i, num := range nums {
+        need := target - num
+
+        if j, ok := seen[need]; ok {
+            return []int{j, i}
+        }
+
+        seen[num] = i
+    }
+
+    return nil
+}
+```
+
+The map allows approximately O(1) average lookup.
+
+---
+
+# 27. Map Key Restrictions
+
+Map keys must be **comparable**.
+
+Valid keys include:
+
+```go
+int
+string
+bool
+array
+struct
+pointer
+```
+
+Slices cannot be map keys:
+
+```go
+map[[]int]string
+```
+
+This is invalid because slices are not comparable.
+
+---
+
+# 28. Important Map Rules
+
+Remember:
+
+```text
+make(map[K]V)
+```
+
+creates a map.
+
+```go
+m[key] = value
+```
+
+adds or updates.
+
+```go
+value := m[key]
+```
+
+reads.
+
+```go
+value, ok := m[key]
+```
+
+checks existence.
+
+```go
+delete(m, key)
+```
+
+removes.
+
+```go
+len(m)
+```
+
+gets number of entries.
+
+---
+
+# 29. Summary
+
+Maps are one of the most important Go data structures.
+
+Think:
+
+```text
+Map
+ ↓
+Key → Value
+```
+
+For example:
+
+```go
+users := map[int]string{
+    1: "Siam",
+    2: "Rahim",
+}
+```
+
+Maps are especially important for:
+
+- Hash tables
+- Frequency counting
+- Sets
+- Caching
+- Fast lookup
+- Grouping
+- Algorithms
+- Backend applications

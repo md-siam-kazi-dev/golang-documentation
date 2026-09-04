@@ -1,0 +1,605 @@
+# Go Program Structure
+
+Before learning variables, functions, and other features, you need to understand **how a Go program is organized**.
+
+A simple Go program looks like this:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, Go!")
+}
+```
+
+Let's understand every part.
+
+---
+
+# 1. Package
+
+Every Go source file starts with a package declaration.
+
+```go
+package main
+```
+
+A package is a way to organize related Go code.
+
+Think of a package like a **folder containing related functionality**.
+
+For example:
+
+```text
+myproject/
+├── main.go
+├── user/
+│   ├── user.go
+│   └── profile.go
+└── database/
+    └── database.go
+```
+
+The files inside the `user` directory can belong to the `user` package.
+
+---
+
+# 2. The `main` Package
+
+The `main` package is special.
+
+If you want to create an executable Go program, you normally use:
+
+```go
+package main
+```
+
+For example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Running program...")
+}
+```
+
+The Go runtime starts execution from the `main()` function inside the `main` package.
+
+---
+
+# 3. The `main()` Function
+
+The `main()` function is the entry point of an executable Go program.
+
+```go
+func main() {
+    fmt.Println("Hello")
+}
+```
+
+When you run:
+
+```bash
+go run .
+```
+
+Go eventually starts executing your program from:
+
+```go
+main()
+```
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Start")
+    fmt.Println("Learning Go")
+    fmt.Println("End")
+}
+```
+
+Output:
+
+```text
+Start
+Learning Go
+End
+```
+
+The statements execute from top to bottom.
+
+---
+
+# 4. Import
+
+The `import` keyword allows your program to use another package.
+
+```go
+import "fmt"
+```
+
+Here, we're importing the standard library's `fmt` package.
+
+We can then use:
+
+```go
+fmt.Println("Hello")
+```
+
+Without importing `fmt`, this would not work.
+
+---
+
+# 5. Multiple Imports
+
+You can import multiple packages.
+
+```go
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+    fmt.Println(math.Sqrt(25))
+}
+```
+
+Output:
+
+```text
+5
+```
+
+The parentheses form is called an **import block**.
+
+---
+
+# 6. Comments
+
+Go supports two types of comments.
+
+## Single-Line Comments
+
+Use `//`.
+
+```go
+// This is a comment
+
+fmt.Println("Hello")
+```
+
+The compiler ignores comments.
+
+---
+
+## Multi-Line Comments
+
+Use:
+
+```go
+/*
+    This is a
+    multi-line comment.
+*/
+```
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    /*
+        Print a message
+        to the terminal.
+    */
+    fmt.Println("Hello")
+}
+```
+
+---
+
+# 7. Statements
+
+A statement performs an action.
+
+Example:
+
+```go
+fmt.Println("Hello")
+```
+
+Another example:
+
+```go
+age := 21
+```
+
+And:
+
+```go
+name := "Siam"
+```
+
+Go generally does **not require semicolons** at the end of statements.
+
+This is valid:
+
+```go
+name := "Siam"
+age := 21
+fmt.Println(name, age)
+```
+
+You technically can use semicolons in some situations, but normal Go code doesn't need them.
+
+---
+
+# 8. Functions
+
+A function is a reusable block of code.
+
+```go
+func greet() {
+    fmt.Println("Hello")
+}
+```
+
+You can call it:
+
+```go
+greet()
+```
+
+Complete example:
+
+```go
+package main
+
+import "fmt"
+
+func greet() {
+    fmt.Println("Hello, Siam!")
+}
+
+func main() {
+    greet()
+}
+```
+
+Output:
+
+```text
+Hello, Siam!
+```
+
+---
+
+# 9. Function Parameters
+
+Functions can receive data.
+
+```go
+func greet(name string) {
+    fmt.Println("Hello", name)
+}
+```
+
+Call it:
+
+```go
+greet("Siam")
+```
+
+Output:
+
+```text
+Hello Siam
+```
+
+Another example:
+
+```go
+func add(a int, b int) {
+    fmt.Println(a + b)
+}
+
+func main() {
+    add(10, 20)
+}
+```
+
+Output:
+
+```text
+30
+```
+
+---
+
+# 10. Function Return Values
+
+Functions can return values.
+
+```go
+func add(a int, b int) int {
+    return a + b
+}
+```
+
+Use the returned value:
+
+```go
+result := add(10, 20)
+
+fmt.Println(result)
+```
+
+Output:
+
+```text
+30
+```
+
+Complete example:
+
+```go
+package main
+
+import "fmt"
+
+func add(a int, b int) int {
+    return a + b
+}
+
+func main() {
+    result := add(10, 20)
+
+    fmt.Println(result)
+}
+```
+
+---
+
+# 11. Braces `{}`
+
+Go uses curly braces to define blocks.
+
+```go
+func main() {
+    fmt.Println("Hello")
+}
+```
+
+The code between `{` and `}` belongs to the function.
+
+Another example:
+
+```go
+if age >= 18 {
+    fmt.Println("Adult")
+}
+```
+
+---
+
+# 12. Identifiers
+
+Identifiers are names given to things in your program.
+
+Examples:
+
+```go
+name
+age
+calculateTotal
+User
+Product
+```
+
+Identifiers can represent:
+
+- Variables
+- Functions
+- Types
+- Constants
+- Packages
+
+Example:
+
+```go
+name := "Siam"
+```
+
+Here:
+
+```text
+name
+```
+
+is an identifier.
+
+---
+
+# 13. Exported vs Unexported Names
+
+Go uses capitalization to determine whether an identifier is exported.
+
+Example:
+
+```go
+func PrintUser() {
+}
+```
+
+`PrintUser` starts with an uppercase letter, so it can be accessed from another package.
+
+But:
+
+```go
+func printUser() {
+}
+```
+
+starts with lowercase, so it is not exported outside its package.
+
+This is an important Go convention.
+
+---
+
+# 14. A Complete Program
+
+Let's combine everything:
+
+```go
+package main
+
+import "fmt"
+
+func add(a int, b int) int {
+    return a + b
+}
+
+func greet(name string) {
+    fmt.Println("Hello", name)
+}
+
+func main() {
+    greet("Siam")
+
+    result := add(10, 20)
+
+    fmt.Println("Result:", result)
+}
+```
+
+Output:
+
+```text
+Hello Siam
+Result: 30
+```
+
+---
+
+# 15. How Go Executes a Program
+
+Conceptually:
+
+```text
+Source Code
+    ↓
+package main
+    ↓
+main()
+    ↓
+Function calls
+    ↓
+Program output
+```
+
+For example:
+
+```go
+func main() {
+    greet("Siam")
+    add(10, 20)
+}
+```
+
+Execution starts at:
+
+```go
+main()
+```
+
+Then:
+
+```text
+main()
+  ↓
+greet()
+  ↓
+back to main()
+  ↓
+add()
+  ↓
+back to main()
+  ↓
+program ends
+```
+
+---
+
+# 16. File Organization
+
+A small Go project may look like:
+
+```text
+myapp/
+├── go.mod
+└── main.go
+```
+
+A larger project might look like:
+
+```text
+myapp/
+├── go.mod
+├── go.sum
+├── main.go
+├── cmd/
+├── internal/
+├── api/
+├── models/
+├── services/
+└── repository/
+```
+
+Don't worry about advanced project architecture yet. You'll learn it later.
+
+---
+
+# Key Takeaways
+
+Remember these important concepts:
+
+```text
+package     → organizes Go code
+import      → uses another package
+func        → defines a function
+main()      → entry point of executable programs
+{}          → defines a code block
+//          → single-line comment
+/* */       → multi-line comment
+return      → returns a value
+```
+
+A basic Go program follows this general structure:
+
+```go
+package main
+
+import "package"
+
+func main() {
+    // program logic
+}
+```
+
+Once you understand this structure, you're ready to start working with **variables and constants**.

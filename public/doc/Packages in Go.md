@@ -1,0 +1,755 @@
+# Packages in Go
+
+A **package** is a way to organize Go code into reusable groups.
+
+When a Go application becomes large, putting everything inside one file becomes difficult.
+
+Packages allow you to organize code like:
+
+```text
+project/
+├── main.go
+├── user/
+│   └── user.go
+├── auth/
+│   └── auth.go
+└── database/
+    └── database.go
+```
+
+Each directory can represent a package.
+
+---
+
+# 1. The Main Package
+
+Every executable Go program needs a package named:
+
+```go
+package main
+```
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello Go")
+}
+```
+
+The `main()` function is the entry point of an executable program.
+
+---
+
+# 2. What Is a Package?
+
+Consider:
+
+```go
+package mathutil
+
+func Add(a int, b int) int {
+    return a + b
+}
+```
+
+This file belongs to the:
+
+```text
+mathutil
+```
+
+package.
+
+Other packages can import it.
+
+---
+
+# 3. Why Use Packages?
+
+Packages help you:
+
+- Organize code
+- Reuse code
+- Separate responsibilities
+- Hide implementation details
+- Make large projects easier to maintain
+- Create clean architecture
+
+For example:
+
+```text
+auth
+database
+user
+product
+order
+payment
+```
+
+can each have their own packages.
+
+---
+
+# 4. Package Declaration
+
+Every Go source file begins with a package declaration:
+
+```go
+package main
+```
+
+or:
+
+```go
+package user
+```
+
+All `.go` files in the same directory normally belong to the same package.
+
+---
+
+# 5. Importing a Package
+
+Go's standard library contains many packages.
+
+Example:
+
+```go
+import "fmt"
+```
+
+Then:
+
+```go
+fmt.Println("Hello")
+```
+
+Another example:
+
+```go
+import "strings"
+```
+
+Then:
+
+```go
+result := strings.ToUpper("hello")
+
+fmt.Println(result)
+```
+
+Output:
+
+```text
+HELLO
+```
+
+---
+
+# 6. Multiple Imports
+
+You can import multiple packages:
+
+```go
+import (
+    "fmt"
+    "strings"
+    "strconv"
+)
+```
+
+Then:
+
+```go
+fmt.Println(strings.ToUpper("hello"))
+
+num, _ := strconv.Atoi("100")
+
+fmt.Println(num)
+```
+
+---
+
+# 7. Standard Library Packages
+
+Go provides a large standard library.
+
+Some important packages:
+
+```text
+fmt
+strings
+strconv
+math
+time
+os
+io
+net/http
+encoding/json
+database/sql
+context
+errors
+sync
+```
+
+You should become comfortable navigating the standard library.
+
+---
+
+# 8. Creating Your Own Package
+
+Suppose your project is:
+
+```text
+myapp/
+├── main.go
+└── calculator/
+    └── calculator.go
+```
+
+`calculator/calculator.go`:
+
+```go
+package calculator
+
+func Add(a int, b int) int {
+    return a + b
+}
+```
+
+---
+
+# 9. Importing Your Package
+
+In `main.go`:
+
+```go
+package main
+
+import (
+    "fmt"
+
+    "example.com/myapp/calculator"
+)
+
+func main() {
+    result := calculator.Add(10, 20)
+
+    fmt.Println(result)
+}
+```
+
+The import path depends on the module path declared in `go.mod`.
+
+---
+
+# 10. Exported Names
+
+This is one of the most important Go package concepts.
+
+Names beginning with an uppercase letter are **exported**.
+
+```go
+func Add(a int, b int) int {
+    return a + b
+}
+```
+
+Other packages can access `Add`.
+
+But:
+
+```go
+func add(a int, b int) int {
+    return a + b
+}
+```
+
+is unexported.
+
+Other packages cannot access it directly.
+
+---
+
+# 11. Exported Struct Fields
+
+Consider:
+
+```go
+package user
+
+type User struct {
+    Name string
+    age  int
+}
+```
+
+From another package:
+
+```go
+user.Name
+```
+
+works.
+
+But:
+
+```go
+user.age
+```
+
+does not work.
+
+Why?
+
+Because:
+
+```text
+Name → exported
+age  → unexported
+```
+
+---
+
+# 12. Encapsulation
+
+Go uses capitalization to control visibility.
+
+For example:
+
+```go
+type User struct {
+    Name     string
+    Password string
+}
+```
+
+If you don't want another package to directly access a field:
+
+```go
+type User struct {
+    Name     string
+    password string
+}
+```
+
+Now `password` is private to the package.
+
+---
+
+# 13. Package-Level Variables
+
+You can define variables at package level:
+
+```go
+package config
+
+var AppName = "My App"
+```
+
+Another package can use:
+
+```go
+fmt.Println(config.AppName)
+```
+
+because `AppName` is exported.
+
+---
+
+# 14. Package-Level Functions
+
+```go
+package mathutil
+
+func Add(a, b int) int {
+    return a + b
+}
+
+func Multiply(a, b int) int {
+    return a * b
+}
+```
+
+Then:
+
+```go
+mathutil.Add(10, 20)
+mathutil.Multiply(5, 4)
+```
+
+---
+
+# 15. Package init()
+
+Go supports a special function:
+
+```go
+func init() {
+    fmt.Println("Initializing package")
+}
+```
+
+`init()` runs automatically when the package is initialized.
+
+Example:
+
+```go
+package config
+
+import "fmt"
+
+func init() {
+    fmt.Println("Config initialized")
+}
+```
+
+You normally should not overuse `init()` because it can make program initialization harder to understand.
+
+---
+
+# 16. Package Alias
+
+You can give an imported package another local name.
+
+```go
+import (
+    m "math"
+)
+```
+
+Then:
+
+```go
+fmt.Println(m.Sqrt(25))
+```
+
+However, aliases should be used only when they improve clarity or resolve a naming conflict.
+
+---
+
+# 17. Blank Import
+
+You can import a package using `_`:
+
+```go
+import _ "some/package"
+```
+
+This means:
+
+> Import the package for its initialization side effects, but don't refer to it by name.
+
+This pattern is commonly seen with database drivers.
+
+---
+
+# 18. Internal Packages
+
+Go supports a special `internal` directory.
+
+Example:
+
+```text
+project/
+├── internal/
+│   ├── auth/
+│   └── database/
+└── main.go
+```
+
+Packages inside `internal` have restricted import visibility.
+
+They can be imported only by code within the allowed parent tree.
+
+This is useful for keeping implementation details private to your application.
+
+---
+
+# 19. Package Naming Rules
+
+Package names should generally be:
+
+- Short
+- Lowercase
+- Simple
+- Descriptive
+
+Good:
+
+```text
+auth
+user
+database
+config
+httpclient
+```
+
+Avoid unnecessarily complicated names like:
+
+```text
+userManagementUtilities
+```
+
+---
+
+# 20. Package vs Directory
+
+In normal Go projects:
+
+```text
+directory
+    ↓
+contains Go files
+    ↓
+those files declare a package
+```
+
+Usually, one directory corresponds to one package.
+
+For example:
+
+```text
+user/
+    user.go
+    service.go
+```
+
+Both might contain:
+
+```go
+package user
+```
+
+They are part of the same package.
+
+---
+
+# 21. Package Organization
+
+A backend application might look like:
+
+```text
+myapp/
+├── cmd/
+│   └── server/
+│       └── main.go
+├── internal/
+│   ├── user/
+│   ├── auth/
+│   ├── product/
+│   └── database/
+├── pkg/
+│   └── validator/
+└── go.mod
+```
+
+This is one possible organization.
+
+There is no single mandatory Go project structure.
+
+---
+
+# 22. Packages and Interfaces
+
+Packages work very well with interfaces.
+
+For example:
+
+```go
+package repository
+
+type UserRepository interface {
+    Create()
+    Get()
+}
+```
+
+Another package can implement that interface without explicitly declaring that it implements it.
+
+This is a major Go design principle.
+
+---
+
+# 23. Circular Imports
+
+Go does not allow import cycles.
+
+For example:
+
+```text
+package A
+   ↓
+package B
+   ↓
+package A
+```
+
+This creates a circular dependency.
+
+Go will reject it.
+
+A good package design should have clear dependency directions.
+
+---
+
+# 24. Practical Example
+
+Project:
+
+```text
+myapp/
+├── main.go
+└── greeting/
+    └── greeting.go
+```
+
+`greeting.go`:
+
+```go
+package greeting
+
+func Hello(name string) string {
+    return "Hello " + name
+}
+```
+
+`main.go`:
+
+```go
+package main
+
+import (
+    "fmt"
+
+    "example.com/myapp/greeting"
+)
+
+func main() {
+    message := greeting.Hello("Siam")
+
+    fmt.Println(message)
+}
+```
+
+Output:
+
+```text
+Hello Siam
+```
+
+---
+
+# 25. Package Design Principle
+
+Try to give a package one clear responsibility.
+
+Good:
+
+```text
+auth
+database
+payment
+email
+```
+
+Instead of one giant:
+
+```text
+utils
+```
+
+containing hundreds of unrelated functions.
+
+A package should ideally have a clear purpose.
+
+---
+
+# 26. Packages in Real Backend Applications
+
+For example:
+
+```text
+internal/
+├── auth/
+│   ├── handler.go
+│   ├── service.go
+│   └── repository.go
+│
+├── user/
+│   ├── handler.go
+│   ├── service.go
+│   └── repository.go
+│
+└── database/
+    └── postgres.go
+```
+
+This allows different parts of your application to be separated.
+
+---
+
+# 27. Summary
+
+Packages provide:
+
+```text
+Organization
+Reuse
+Encapsulation
+Dependency boundaries
+Maintainability
+```
+
+Remember:
+
+```go
+package main
+```
+
+is normally used for executable programs.
+
+```go
+import "package/path"
+```
+
+imports another package.
+
+```go
+Name
+```
+
+starts with uppercase → exported.
+
+```go
+name
+```
+
+starts with lowercase → unexported.
+
+---
+
+# 28. Important Concepts to Master
+
+Learn these well:
+
+```text
+Package declaration
+Imports
+Standard library
+Custom packages
+Exported names
+Unexported names
+Package-level variables
+Package-level functions
+init()
+Package aliases
+Internal packages
+Circular imports
+Package organization
+```

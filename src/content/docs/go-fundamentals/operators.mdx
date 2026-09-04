@@ -1,0 +1,564 @@
+---
+title: "Operators"
+description: "Operators are symbols that tell Go to perform an operation."
+order: 9
+section: "Go - Fundamentals"
+---
+
+Operators are symbols that tell Go to perform an operation.
+
+For example:
+
+```go
+a + b
+```
+
+The `+` operator tells Go to add two values.
+
+Go has several categories of operators:
+
+- Arithmetic operators
+- Assignment operators
+- Comparison operators
+- Logical operators
+- Increment and decrement operators
+- Bitwise operators
+
+---
+
+## 1. Arithmetic Operators
+
+Arithmetic operators are used for mathematical calculations.
+
+| Operator | Meaning |
+|---|---|
+| `+` | Addition |
+| `-` | Subtraction |
+| `*` | Multiplication |
+| `/` | Division |
+| `%` | Remainder |
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    a := 20
+    b := 6
+
+    fmt.Println(a + b)
+    fmt.Println(a - b)
+    fmt.Println(a * b)
+    fmt.Println(a / b)
+    fmt.Println(a % b)
+}
+```
+
+Output:
+
+```text
+26
+14
+120
+3
+2
+```
+
+---
+
+## 2. Integer Division
+
+Be careful with integer division.
+
+```go
+a := 10
+b := 3
+
+fmt.Println(a / b)
+```
+
+Output:
+
+```text
+3
+```
+
+The decimal part is discarded.
+
+If you want a decimal result:
+
+```go
+a := 10.0
+b := 3.0
+
+fmt.Println(a / b)
+```
+
+Output:
+
+```text
+3.3333333333333335
+```
+
+---
+
+## 3. Modulo Operator `%`
+
+The `%` operator returns the remainder.
+
+```go
+fmt.Println(10 % 3)
+```
+
+Output:
+
+```text
+1
+```
+
+This is extremely useful for checking whether a number is even or odd.
+
+```go
+number := 10
+
+if number%2 == 0 {
+    fmt.Println("Even")
+} else {
+    fmt.Println("Odd")
+}
+```
+
+---
+
+## 4. Comparison Operators
+
+Comparison operators compare two values.
+
+| Operator | Meaning |
+|---|---|
+| `==` | Equal |
+| `!=` | Not equal |
+| `>` | Greater than |
+| `<` | Less than |
+| `>=` | Greater than or equal |
+| `<=` | Less than or equal |
+
+Example:
+
+```go
+a := 10
+b := 20
+
+fmt.Println(a == b)
+fmt.Println(a != b)
+fmt.Println(a > b)
+fmt.Println(a < b)
+fmt.Println(a >= b)
+fmt.Println(a <= b)
+```
+
+Output:
+
+```text
+false
+true
+false
+true
+false
+true
+```
+
+Comparison expressions return a `bool`.
+
+---
+
+## 5. Equality Operator
+
+```go
+a := 10
+b := 10
+
+fmt.Println(a == b)
+```
+
+Output:
+
+```text
+true
+```
+
+Don't confuse:
+
+```go
+=
+```
+
+with:
+
+```go
+==
+```
+
+`=` assigns a value.
+
+`==` compares values.
+
+Example:
+
+```go
+x := 10
+
+x = 20       // assignment
+
+fmt.Println(x == 20) // comparison
+```
+
+---
+
+## 6. Logical Operators
+
+Logical operators work with boolean values.
+
+| Operator | Meaning |
+|---|---|
+| `&&` | AND |
+| `||` | OR |
+| `!` | NOT |
+
+---
+
+## AND `&&`
+
+Both conditions must be true.
+
+```go
+age := 25
+hasID := true
+
+if age >= 18 && hasID {
+    fmt.Println("Access allowed")
+}
+```
+
+Both conditions are true, so the program prints:
+
+```text
+Access allowed
+```
+
+---
+
+## OR `||`
+
+At least one condition must be true.
+
+```go
+isAdmin := false
+isOwner := true
+
+if isAdmin || isOwner {
+    fmt.Println("Access allowed")
+}
+```
+
+---
+
+## NOT `!`
+
+The `!` operator reverses a boolean.
+
+```go
+isLoggedIn := false
+
+if !isLoggedIn {
+    fmt.Println("Please login")
+}
+```
+
+Output:
+
+```text
+Please login
+```
+
+---
+
+## 7. Assignment Operators
+
+The basic assignment operator is:
+
+```go
+=
+```
+
+Example:
+
+```go
+x := 10
+
+x = 20
+
+fmt.Println(x)
+```
+
+Output:
+
+```text
+20
+```
+
+Go also supports compound assignment operators.
+
+| Operator | Example | Equivalent |
+|---|---|---|
+| `+=` | `x += 5` | `x = x + 5` |
+| `-=` | `x -= 5` | `x = x - 5` |
+| `*=` | `x *= 5` | `x = x * 5` |
+| `/=` | `x /= 5` | `x = x / 5` |
+| `%=` | `x %= 5` | `x = x % 5` |
+
+Example:
+
+```go
+x := 10
+
+x += 5
+
+fmt.Println(x)
+```
+
+Output:
+
+```text
+15
+```
+
+---
+
+## 8. Increment Operator
+
+Go has:
+
+```go
+++
+```
+
+Example:
+
+```go
+x := 10
+
+x++
+
+fmt.Println(x)
+```
+
+Output:
+
+```text
+11
+```
+
+The increment operator increases a value by one.
+
+---
+
+## 9. Decrement Operator
+
+Go also has:
+
+```go
+--
+```
+
+Example:
+
+```go
+x := 10
+
+x--
+
+fmt.Println(x)
+```
+
+Output:
+
+```text
+9
+```
+
+Important: Go does **not** support using `++` or `--` as expressions.
+
+For example, this is invalid:
+
+```go
+y := x++
+```
+
+Instead:
+
+```go
+x++
+y := x
+```
+
+---
+
+## 10. Bitwise Operators
+
+Go provides bitwise operators for integer values.
+
+| Operator | Meaning |
+|---|---|
+| `&` | AND |
+| `|` | OR |
+| `^` | XOR |
+| `<<` | Left shift |
+| `>>` | Right shift |
+
+Example:
+
+```go
+a := 5
+b := 3
+
+fmt.Println(a & b)
+fmt.Println(a | b)
+fmt.Println(a ^ b)
+```
+
+Binary representation:
+
+```text
+5 = 101
+3 = 011
+```
+
+AND:
+
+```text
+101
+011
+---
+001 = 1
+```
+
+So:
+
+```go
+5 & 3
+```
+
+produces:
+
+```text
+1
+```
+
+---
+
+## 11. Left Shift
+
+```go
+x := 1
+
+fmt.Println(x << 3)
+```
+
+Output:
+
+```text
+8
+```
+
+Binary:
+
+```text
+0001 << 3
+=
+1000
+```
+
+---
+
+## 12. Operator Precedence
+
+Go follows operator precedence.
+
+For example:
+
+```go
+result := 2 + 3 * 4
+
+fmt.Println(result)
+```
+
+Output:
+
+```text
+14
+```
+
+Multiplication happens before addition.
+
+Use parentheses when you want to make the order explicit:
+
+```go
+result := (2 + 3) * 4
+
+fmt.Println(result)
+```
+
+Output:
+
+```text
+20
+```
+
+---
+
+## 13. Real-World Example
+
+Calculate whether a student passed:
+
+```go
+marks := 75
+attendance := 80
+
+if marks >= 40 && attendance >= 75 {
+    fmt.Println("Passed")
+} else {
+    fmt.Println("Failed")
+}
+```
+
+---
+
+## 14. Another Example
+
+Check whether a number is between 10 and 100:
+
+```go
+number := 50
+
+if number >= 10 && number <= 100 {
+    fmt.Println("Number is in range")
+}
+```
+
+---
+
+## Key Takeaways
+
+- `+`, `-`, `*`, `/`, `%` are arithmetic operators.
+- `==`, `!=`, `>`, `<`, `>=`, `<=` compare values.
+- `&&`, `||`, `!` work with boolean conditions.
+- `=` assigns a value.
+- `++` increases by one.
+- `--` decreases by one.
+- `%` is very useful in programming problems.
+- `&`, `|`, `^`, `<<`, `>>` perform bitwise operations.
+- Use parentheses to make complicated expressions easier to understand.

@@ -1,0 +1,313 @@
+# Your First Go Program
+
+Now that Go is installed, let's create our first Go program.
+
+---
+
+## Create a Project
+
+Create a directory:
+
+```bash
+mkdir hello-go
+cd hello-go
+```
+
+Initialize a Go module:
+
+```bash
+go mod init hello-go
+```
+
+Create a file called:
+
+```text
+main.go
+```
+
+Your project should look like:
+
+```text
+hello-go/
+├── go.mod
+└── main.go
+```
+
+---
+
+## Write Your First Go Program
+
+Open `main.go` and write:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+
+---
+
+## Run the Program
+
+Run:
+
+```bash
+go run .
+```
+
+You should see:
+
+```text
+Hello, World!
+```
+
+You have just written and executed your first Go program.
+
+---
+
+# Understanding the Program
+
+Let's understand each part.
+
+## `package main`
+
+```go
+package main
+```
+
+Every Go file belongs to a package.
+
+The `main` package is special.
+
+A program that should be executable must contain a `main` package.
+
+---
+
+## `import "fmt"`
+
+```go
+import "fmt"
+```
+
+`import` allows your program to use functionality from another package.
+
+Here we import the standard library's `fmt` package.
+
+The `fmt` package provides functions for formatted input and output.
+
+---
+
+## `func main()`
+
+```go
+func main() {
+}
+```
+
+`main()` is the entry point of an executable Go program.
+
+When you run:
+
+```bash
+go run .
+```
+
+execution begins inside:
+
+```go
+func main()
+```
+
+---
+
+## `fmt.Println()`
+
+```go
+fmt.Println("Hello, World!")
+```
+
+`Println` prints text to the terminal.
+
+The output is:
+
+```text
+Hello, World!
+```
+
+---
+
+# Changing the Program
+
+Try changing the message:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Welcome to Go!")
+}
+```
+
+Run:
+
+```bash
+go run .
+```
+
+Output:
+
+```text
+Welcome to Go!
+```
+
+---
+
+# Printing Multiple Lines
+
+You can use multiple `Println` statements:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello!")
+    fmt.Println("My name is Siam.")
+    fmt.Println("I am learning Go.")
+}
+```
+
+Output:
+
+```text
+Hello!
+My name is Siam.
+I am learning Go.
+```
+
+---
+
+# Building the Program
+
+Instead of running the source code directly, you can build an executable.
+
+Run:
+
+```bash
+go build
+```
+
+On Linux/macOS, you may get an executable such as:
+
+```text
+hello-go
+```
+
+Run it:
+
+```bash
+./hello-go
+```
+
+Output:
+
+```text
+Hello, World!
+```
+
+---
+
+# `go run` vs `go build`
+
+### `go run`
+
+```bash
+go run .
+```
+
+Useful during development.
+
+It compiles and runs your program.
+
+### `go build`
+
+```bash
+go build
+```
+
+Compiles your program into an executable.
+
+You can then run the executable separately.
+
+---
+
+# Go Formatting
+
+Go has an official formatting tool.
+
+Run:
+
+```bash
+gofmt -w main.go
+```
+
+It automatically formats your Go source code according to Go's standard formatting rules.
+
+You can also run:
+
+```bash
+go fmt
+```
+
+for the current package.
+
+---
+
+# Your First Exercise
+
+Create a program that prints:
+
+```text
+====================
+My Go Journey
+====================
+
+Name: Your Name
+Language: Go
+Goal: Backend Engineer
+```
+
+Try to write it yourself before looking for a solution.
+
+---
+
+# Key Concepts Learned
+
+After this lesson, you should understand:
+
+- `package`
+- `import`
+- `func`
+- `main()`
+- `fmt.Println()`
+- `go run`
+- `go build`
+- `gofmt`
+- `go.mod`
+
+---
+
+# What's Next?
+
+Now that you can create and run a Go program, the next topic is:
+
+**Variables and Constants**
+
+You will learn how Go stores and works with data.

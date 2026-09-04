@@ -1,0 +1,569 @@
+# Type Conversion in Go
+
+Type conversion means changing a value from one data type to another data type.
+
+For example, you may have an `int` value but need to use it as a `float64`.
+
+Go is a **statically typed language**, so Go does not automatically convert values between different numeric types.
+
+You have to explicitly perform the conversion.
+
+---
+
+## 1. Basic Type Conversion
+
+The general syntax is:
+
+```go
+newType(value)
+```
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var age int = 21
+
+    var ageFloat float64 = float64(age)
+
+    fmt.Println(age)
+    fmt.Println(ageFloat)
+}
+```
+
+Output:
+
+```text
+21
+21
+```
+
+Here:
+
+```go
+float64(age)
+```
+
+converts the `int` value into a `float64`.
+
+---
+
+## 2. Integer to Float
+
+You can convert an integer into a floating-point number.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var x int = 10
+
+    y := float64(x)
+
+    fmt.Println(x)
+    fmt.Println(y)
+}
+```
+
+Output:
+
+```text
+10
+10
+```
+
+Although the output looks the same, their types are different.
+
+```go
+x // int
+y // float64
+```
+
+---
+
+## 3. Float to Integer
+
+You can also convert a `float64` into an `int`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    price := 99.99
+
+    result := int(price)
+
+    fmt.Println(result)
+}
+```
+
+Output:
+
+```text
+99
+```
+
+The decimal portion is removed.
+
+It does **not round** the number.
+
+For example:
+
+```go
+int(10.99) // 10
+int(10.01) // 10
+int(10.999) // 10
+```
+
+---
+
+## 4. Negative Floating-Point Numbers
+
+Conversion removes the fractional part toward zero.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    x := -10.75
+
+    y := int(x)
+
+    fmt.Println(y)
+}
+```
+
+Output:
+
+```text
+-10
+```
+
+It does not become `-11`.
+
+---
+
+## 5. Integer Types
+
+Go provides several integer types:
+
+```text
+int
+int8
+int16
+int32
+int64
+uint
+uint8
+uint16
+uint32
+uint64
+```
+
+You can explicitly convert between them.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var x int32 = 100
+
+    y := int64(x)
+
+    fmt.Println(y)
+}
+```
+
+---
+
+## 6. Converting Between Different Integer Types
+
+This is not allowed:
+
+```go
+var x int32 = 100
+
+var y int64 = x
+```
+
+Go will produce a compile-time error.
+
+Instead:
+
+```go
+var x int32 = 100
+
+var y int64 = int64(x)
+```
+
+---
+
+## 7. Converting Integer to Smaller Integer
+
+Be careful when converting between integer types.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var x int64 = 1000
+
+    y := int8(x)
+
+    fmt.Println(y)
+}
+```
+
+The result may not be what you expect because `int8` has a much smaller range.
+
+`int8` can store:
+
+```text
+-128 to 127
+```
+
+So converting a large number into `int8` can cause overflow/wrapping behavior.
+
+---
+
+## 8. String Conversion
+
+Go also allows conversion between certain values and strings.
+
+However, converting an integer directly to `string` does **not** convert the number into its decimal representation.
+
+Example:
+
+```go
+x := 65
+
+s := string(x)
+
+fmt.Println(s)
+```
+
+Output:
+
+```text
+A
+```
+
+Why?
+
+Because `string(65)` creates a string containing the Unicode character represented by code point `65`.
+
+If you want:
+
+```text
+"65"
+```
+
+use the `strconv` package.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    x := 65
+
+    s := strconv.Itoa(x)
+
+    fmt.Println(s)
+}
+```
+
+Output:
+
+```text
+65
+```
+
+---
+
+## 9. String to Integer
+
+Use `strconv.Atoi()`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    ageText := "21"
+
+    age, err := strconv.Atoi(ageText)
+
+    if err != nil {
+        fmt.Println("Invalid number")
+        return
+    }
+
+    fmt.Println(age)
+}
+```
+
+Output:
+
+```text
+21
+```
+
+Notice that `Atoi()` returns two values:
+
+```go
+age, err
+```
+
+The first is the converted number.
+
+The second contains an error if conversion fails.
+
+---
+
+## 10. Invalid Conversion
+
+Consider:
+
+```go
+ageText := "hello"
+
+age, err := strconv.Atoi(ageText)
+
+fmt.Println(age)
+fmt.Println(err)
+```
+
+The conversion fails because `"hello"` is not a valid integer.
+
+Always handle the error when converting user input.
+
+---
+
+## 11. String to Float
+
+Use `strconv.ParseFloat()`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    priceText := "99.99"
+
+    price, err := strconv.ParseFloat(priceText, 64)
+
+    if err != nil {
+        fmt.Println("Invalid price")
+        return
+    }
+
+    fmt.Println(price)
+}
+```
+
+---
+
+## 12. Float to String
+
+Use `strconv.FormatFloat()`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    price := 99.99
+
+    text := strconv.FormatFloat(price, 'f', 2, 64)
+
+    fmt.Println(text)
+}
+```
+
+Output:
+
+```text
+99.99
+```
+
+---
+
+## 13. Boolean to String
+
+You can convert a boolean into a string using `strconv.FormatBool()`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    isLoggedIn := true
+
+    text := strconv.FormatBool(isLoggedIn)
+
+    fmt.Println(text)
+}
+```
+
+Output:
+
+```text
+true
+```
+
+---
+
+## 14. String to Boolean
+
+Use `strconv.ParseBool()`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    text := "true"
+
+    value, err := strconv.ParseBool(text)
+
+    if err != nil {
+        fmt.Println("Invalid boolean")
+        return
+    }
+
+    fmt.Println(value)
+}
+```
+
+---
+
+## 15. Type Conversion vs Type Assertion
+
+These are different concepts.
+
+### Type conversion
+
+Changing one compatible type into another:
+
+```go
+x := int64(100)
+
+y := int(x)
+```
+
+### Type assertion
+
+Extracting a concrete value from an interface:
+
+```go
+var value any = 100
+
+number, ok := value.(int)
+
+if ok {
+    fmt.Println(number)
+}
+```
+
+Type assertions are generally discussed later when learning interfaces.
+
+---
+
+## 16. Important Rule
+
+Go does not perform implicit numeric conversion.
+
+This is invalid:
+
+```go
+var x int = 10
+var y float64 = x
+```
+
+Correct:
+
+```go
+var x int = 10
+var y float64 = float64(x)
+```
+
+---
+
+## 17. Real-World Example
+
+Suppose a user enters their age as a string:
+
+```go
+ageText := "21"
+```
+
+But your program needs to compare the age numerically.
+
+Convert it:
+
+```go
+age, err := strconv.Atoi(ageText)
+
+if err != nil {
+    fmt.Println("Please enter a valid age")
+    return
+}
+
+if age >= 18 {
+    fmt.Println("Adult")
+}
+```
+
+This pattern is extremely common when processing input from users, HTTP requests, JSON, command-line arguments, and databases.
+
+---
+
+## Key Takeaways
+
+- Go requires explicit type conversion.
+- Use `int(value)`, `float64(value)`, etc. for numeric conversions.
+- Converting float to integer removes the fractional part.
+- `string(65)` means Unicode code point conversion, not `"65"`.
+- Use `strconv.Itoa()` to convert an integer to its decimal string.
+- Use `strconv.Atoi()` to convert a string to an integer.
+- Use `strconv.ParseFloat()` for string-to-float conversion.
+- Always handle errors returned by parsing functions.

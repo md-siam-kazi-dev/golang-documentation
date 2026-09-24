@@ -7,3 +7,5 @@
 - The filename tab on Go code blocks must be the literal lowercase `main.go` — filenames should not be uppercased or transformed by decorative text classes (explicitly re-requested after an `uppercase` class rendered it as `MAIN.GO`). Confidence: 0.8
 
 - Wants Go code bodies syntax-highlighted (not monochrome) with a VS Code Dark+ palette: variables light blue (`#9CDCFE`), string/number values orange/green, operators/signs yellow (`#dcdcaa`), plus keywords, types, and italic comments; the copy button must still copy the raw uncolored source. Confidence: 0.8
+
+- Expects the site to stay fully navigable on small screens; tests from real small devices and reports breakages directly (e.g., couldn't reach doc topics because the mobile drawer collapsed), treating mobile usability as a first-class requirement rather than a nicety. Confidence: 0.5

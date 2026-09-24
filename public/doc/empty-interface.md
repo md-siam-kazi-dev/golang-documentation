@@ -1,9 +1,4 @@
----
-title: "Empty Interface"
-description: "The empty interface is an interface with zero required methods."
-order: 2
-section: "Go - Advanced Language Features"
----
+# Go Empty Interface
 
 The **empty interface** is an interface with zero required methods.
 

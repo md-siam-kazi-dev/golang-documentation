@@ -86,6 +86,14 @@ const SECTIONS = [
       { file: "Go Modules.md", topic: "Go Modules" },
     ],
   },
+  {
+    title: "Go - Advanced Language Features",
+    map: [
+      { file: "interface.md", topic: "Interfaces" },
+      { file: "empty-interface.md", topic: "Empty Interface" },
+      { file: "type-assertion.md", topic: "Type Assertions" },
+    ],
+  },
 ];
 
 /** Same slugify as sidebar/generator: used for topic->slug. */

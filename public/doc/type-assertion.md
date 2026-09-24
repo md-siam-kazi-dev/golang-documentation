@@ -1,9 +1,4 @@
----
-title: "Type Assertions"
-description: "A type assertion allows you to retrieve or check the concrete value stored inside an interface."
-order: 3
-section: "Go - Advanced Language Features"
----
+# Go Type Assertion
 
 A **type assertion** allows you to retrieve or check the concrete value stored inside an interface.
 

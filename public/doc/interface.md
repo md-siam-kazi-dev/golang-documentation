@@ -1,9 +1,4 @@
----
-title: "Interfaces"
-description: "Interfaces are one of the most important concepts in Go. They let us write flexible code that works with different concrete types."
-order: 1
-section: "Go - Advanced Language Features"
----
+# Go Interfaces
 
 Interfaces are one of the most important concepts in Go. They let us write flexible code that works with different concrete types.
 

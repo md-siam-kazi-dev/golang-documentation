@@ -1,9 +1,4 @@
----
-title: "Custom Error"
-description: "A custom error is an error type that you define yourself."
-order: 7
-section: "Go - Advanced Language Features"
----
+# Custom Errors in Go
 
 A custom error is an error type that you define yourself.
 

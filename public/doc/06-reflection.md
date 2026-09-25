@@ -1,9 +1,4 @@
----
-title: "Reflection"
-description: "Reflection allows a Go program to inspect information about values and types at runtime."
-order: 13
-section: "Go - Advanced Language Features"
----
+# Reflection in Go
 
 ## Introduction
 

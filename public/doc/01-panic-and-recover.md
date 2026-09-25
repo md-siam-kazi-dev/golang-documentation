@@ -1,9 +1,4 @@
----
-title: "Panic & Recover"
-description: "Go prefers explicit error handling, but sometimes a program reaches a state where it cannot safely continue. For these situations, Go provides panic and recover"
-order: 8
-section: "Go - Advanced Language Features"
----
+# Panic and Recover in Go
 
 ## Introduction
 

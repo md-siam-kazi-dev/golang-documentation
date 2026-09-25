@@ -1,9 +1,4 @@
----
-title: "Generic Types"
-description: "A generic type is a type that accepts one or more type parameters."
-order: 12
-section: "Go - Advanced Language Features"
----
+# Generic Types in Go
 
 ## Introduction
 

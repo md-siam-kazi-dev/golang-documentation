@@ -1,9 +1,4 @@
----
-title: "The unsafe Package"
-description: "Go normally provides a type-safe way to work with memory."
-order: 14
-section: "Go - Advanced Language Features"
----
+# The unsafe Package in Go
 
 ## Introduction
 

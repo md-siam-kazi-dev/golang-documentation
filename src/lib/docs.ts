@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { cache } from "react";
 
@@ -22,6 +22,8 @@ export type Doc = {
   description: string;
   order: number;
   section: string;
+  /** File modification time, used for sitemap `lastModified`. */
+  lastModified: Date;
 };
 
 const CONTENT_ROOT = join(process.cwd(), "src", "content", "docs");
@@ -103,6 +105,7 @@ export const getDocs = cache((): Doc[] => {
         description: fm.description,
         order: fm.order,
         section: section.title,
+        lastModified: statSync(filePath).mtime,
       });
     }
   }

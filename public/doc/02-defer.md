@@ -1,9 +1,6 @@
----
-title: "Defer"
-description: "defer tells Go:"
-order: 9
-section: "Go - Advanced Language Features"
----
+
+
+# Defer in Go
 
 ## Introduction
 

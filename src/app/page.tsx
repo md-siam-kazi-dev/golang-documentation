@@ -1,17 +1,68 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getDocs, getSidebar, getSiteTitle } from "@/lib/docs";
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_TAGLINE,
+} from "@/lib/site";
+
+const HOME_TITLE = `${SITE_NAME} — ${SITE_TAGLINE}`;
+
+export const metadata: Metadata = {
+  title: { absolute: HOME_TITLE },
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: HOME_TITLE,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+};
 
 export default function Home() {
   const first = getDocs()[0];
   const sections = getSidebar();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    inLanguage: "en",
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <header className="border-b border-slate-200">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <span className="flex items-center gap-2 font-semibold text-slate-900">
-            <BookOpen className="h-5 w-5 text-indigo-600" />
+            <Image
+              src="/favicon.svg"
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5"
+              priority
+            />
             {getSiteTitle()}
           </span>
           <Link

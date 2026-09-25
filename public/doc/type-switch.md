@@ -1,9 +1,4 @@
----
-title: "Type Switch"
-description: "A type switch is a special switch statement used to determine the actual type stored inside an interface value."
-order: 4
-section: "Go - Advanced Language Features"
----
+# Type Switch in Go
 
 A **type switch** is a special `switch` statement used to determine the **actual type** stored inside an interface value.
 

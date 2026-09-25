@@ -1,9 +1,4 @@
----
-title: "Embedding"
-description: "Embedding is a Go feature that allows one struct or interface to be included inside another type."
-order: 5
-section: "Go - Advanced Language Features"
----
+# Embedding in Go
 
 Embedding is a Go feature that allows one struct or interface to be included inside another type.
 

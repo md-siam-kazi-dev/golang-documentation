@@ -1,9 +1,4 @@
----
-title: "Generics"
-description: "Generics allow you to write reusable code that works with different types while still keeping compile-time type safety."
-order: 10
-section: "Go - Advanced Language Features"
----
+# Generics in Go
 
 ## Introduction
 

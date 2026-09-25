@@ -1,9 +1,4 @@
----
-title: "Error Handling"
-description: "Error handling is one of the most important parts of writing reliable Go programs."
-order: 6
-section: "Go - Advanced Language Features"
----
+# Error Handling in Go
 
 Error handling is one of the most important parts of writing reliable Go programs.
 

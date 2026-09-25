@@ -1,9 +1,4 @@
----
-title: "Generic Functions"
-description: "A generic function is a function that can operate on multiple types using type parameters."
-order: 11
-section: "Go - Advanced Language Features"
----
+# Generic Functions in Go
 
 ## Introduction
 

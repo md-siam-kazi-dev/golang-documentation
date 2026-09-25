@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BookOpen } from "lucide-react";
 import { DocsSidebar } from "@/components/docs/sidebar";
 import { MobileDocsNav } from "@/components/docs/mobile-nav";
 import { getSidebar, getSiteTitle } from "@/lib/docs";
@@ -15,7 +15,14 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <MobileDocsNav sections={sections} />
           </div>
           <Link href="/" className="flex items-center gap-2 font-semibold text-slate-900">
-            <BookOpen className="h-5 w-5 text-indigo-600" />
+            <Image
+              src="/favicon.svg"
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5"
+              priority
+            />
             {getSiteTitle()}
           </Link>
         </div>

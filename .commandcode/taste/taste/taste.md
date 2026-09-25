@@ -14,3 +14,10 @@
 - Favors deep root-cause diagnosis that reproduces the reported bug in a real browser before fixing — for the mobile sidebar issue the assistant launched headless Chrome with CDP mobile emulation to measure the drawer's computed rect, discovered a `backdrop-filter` ancestor was the fixed-position containing block, and then re-verified the fix end-to-end (open drawer, scroll to last topic, click, navigate, and repeat at 320px) plus a full `tsc` typecheck. Wants fixes verified against the actual failure scenario, not just eyeballed. Confidence: 0.6
 
 - Deploys/hosts the site on Vercel and wants Vercel's first-party platform tooling integrated into the project (e.g., asked to "Implement vercel analytics" via `@vercel/analytics`), wired at the root layout so it covers every page rather than a single route. Confidence: 0.5
+
+- Wants a read-only audit before any code changes: inspect the whole project first, produce a concrete findings/plan document, and only implement once that's approved. Confidence: 0.6
+- Strongly anti-spam and quality-first: never fabricate content to satisfy a requirement, never keyword-stuff, never create thin/duplicate pages competing for the same intent, and never delete useful pages or change existing URLs unnecessarily. Quality for real users matters more than the metric. Confidence: 0.65
+- Wants honest reporting: do not invent numerical scores/metrics that weren't actually measured — say what couldn't be measured and why. Confidence: 0.6
+- Expects a verification gate after implementation: run lint, type checking, and a build, then inspect the actual generated output (routes, sitemap, robots, canonicals, metadata, structured data, internal links) rather than assuming it works. Confidence: 0.6
+- Wants changes scoped to the project's existing architecture and coding style — fix the targeted problem without rewriting unrelated parts of the app. Confidence: 0.55
+- Expects a structured end-of-task report: what changed and why, files modified, files created, URLs/routes affected, remaining known issues, and recommended next steps. Confidence: 0.6

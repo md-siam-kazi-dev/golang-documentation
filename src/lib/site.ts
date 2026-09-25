@@ -20,21 +20,25 @@ export const SITE_KEYWORDS = [
   "Go examples",
 ];
 
+/** Canonical production origin, used when no environment override is present. */
+const PRODUCTION_SITE_URL = "https://golangdocumentation.vercel.app";
+
 /**
  * Resolves the canonical origin for the site.
  *
  * Priority: explicit `NEXT_PUBLIC_SITE_URL` override, then the Vercel
- * production/preview domain, then localhost for local development.
+ * production domain, then the known production origin. Preview deployment URLs
+ * (`VERCEL_URL`) are deliberately excluded so previews canonicalize to
+ * production instead of self-canonicalizing.
  */
 function resolveSiteUrl(): string {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (explicit) return explicit.replace(/\/+$/, "");
 
-  const vercel =
-    process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
-  if (vercel) return `https://${vercel.replace(/\/+$/, "")}`;
+  const production = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (production) return `https://${production.replace(/\/+$/, "")}`;
 
-  return "http://localhost:3000";
+  return PRODUCTION_SITE_URL;
 }
 
 export const SITE_URL = resolveSiteUrl();

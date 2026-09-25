@@ -31,7 +31,7 @@ export function DocsSidebar({
                     href={href}
                     onClick={onNavigate}
                     aria-current={isActive ? "page" : undefined}
-                    className={`block border-l-2 px-3 py-1.5 text-sm transition-colors ${
+                    className={`block border-l-2 px-3 py-2 text-sm transition-colors ${
                       isActive
                         ? "border-indigo-600 bg-indigo-50 font-medium text-indigo-700"
                         : "border-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900"

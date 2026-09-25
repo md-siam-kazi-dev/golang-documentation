@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getDocs, getSidebar, getSiteTitle } from "@/lib/docs";
+import { INDEX_ROBOTS } from "@/lib/seo";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
     title: HOME_TITLE,
     description: SITE_DESCRIPTION,
   },
+  robots: INDEX_ROBOTS,
 };
 
 export default function Home() {
@@ -113,11 +115,10 @@ export default function Home() {
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sections.map((section) => {
-              const firstTopic = section.topics[0];
               return (
                 <Link
                   key={section.slug}
-                  href={`/docs/${section.slug}/${firstTopic?.slug ?? ""}`}
+                  href={`/docs/${section.slug}`}
                   className="group rounded-lg border border-slate-200 p-5 transition-colors hover:border-indigo-300 hover:bg-indigo-50"
                 >
                   <h3 className="font-semibold text-slate-900">{section.title}</h3>

@@ -30,7 +30,7 @@ export function MobileDocsNav({ sections }: { sections: SidebarSection[] }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open documentation menu"
-        className="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
       >
         <Menu className="h-5 w-5" />
       </button>
@@ -62,7 +62,7 @@ export function MobileDocsNav({ sections }: { sections: SidebarSection[] }) {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close documentation menu"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
                 >
                   <X className="h-5 w-5" />
                 </button>

@@ -31,6 +31,7 @@ async function writeTopicMdx(dir, fileIndex, sectionTitle, topicTitle, demoBody)
     `order: ${fileIndex}`,
     `section: "${sectionTitle.replaceAll('"', '\\"')}"`,
     `slug: "${slug}"`,
+    "draft: true",
     "---",
     "",
     demoBody.trim(),

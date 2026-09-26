@@ -11,6 +11,7 @@ import {
 } from "@/lib/docs";
 import {
   breadcrumbJsonLd,
+  getArticleJsonLd,
   getDocBreadcrumbs,
   getRelatedDocs,
   getSeoDescription,
@@ -21,7 +22,7 @@ import {
   OG_IMAGE,
   OG_IMAGE_SIZE,
 } from "@/lib/seo";
-import { absoluteUrl, SITE_NAME } from "@/lib/site";
+import { SITE_NAME } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string[] }>;
@@ -42,6 +43,8 @@ async function loadDoc(slug: string[]) {
     return null;
   }
 }
+
+export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   return getDocs().map((doc) => ({ slug: doc.slug }));
@@ -92,21 +95,7 @@ export default async function DocPage({ params }: PageProps) {
 
   // Structured data only for pages with real content — placeholder pages are
   // noindexed and shouldn't claim to be articles.
-  const articleJsonLd = doc.indexable
-    ? {
-        "@context": "https://schema.org",
-        "@type": "TechArticle",
-        headline: doc.title,
-        description: getSeoDescription(doc),
-        url: absoluteUrl(docUrl(doc.slug)),
-        inLanguage: "en",
-        isPartOf: {
-          "@type": "WebSite",
-          name: SITE_NAME,
-          url: absoluteUrl("/"),
-        },
-      }
-    : null;
+  const articleJsonLd = doc.indexable ? getArticleJsonLd(doc) : null;
 
   return (
     <article>

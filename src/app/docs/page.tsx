@@ -7,7 +7,7 @@ import {
   getSidebar,
 } from "@/lib/docs";
 import { getSectionOverview } from "@/lib/sections";
-import { INDEX_ROBOTS, OG_IMAGE, OG_IMAGE_SIZE } from "@/lib/seo";
+import { INDEX_ROBOTS, OG_IMAGE, OG_IMAGE_SIZE, WEBSITE_ID } from "@/lib/seo";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 const TITLE = `Go Documentation — Browse All Topics`;
@@ -48,7 +48,7 @@ export default function DocsIndexPage() {
     description: DESCRIPTION,
     url: absoluteUrl("/docs"),
     inLanguage: "en",
-    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: absoluteUrl("/") },
+    isPartOf: { "@id": WEBSITE_ID },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: sections.length,

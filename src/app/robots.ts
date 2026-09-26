@@ -6,8 +6,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // Raw Markdown sources mirror the rendered docs — keep them out of the index.
-    
+      // Raw Markdown sources under /doc mirror the rendered docs — keep them
+      // (and the other non-page assets there) out of the index.
+      disallow: ["/doc/"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,

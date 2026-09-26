@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { getSiteJsonLd } from "@/lib/seo";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -46,6 +47,13 @@ export const metadata: Metadata = {
     title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.svg",
+  },
   verification: {
     google: "caJFDD9AeblLtj9TE8k1qaiyijMlNPld7xbGZ47XL04",
   },
@@ -64,6 +72,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-slate-900">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getSiteJsonLd()).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <Analytics />
       </body>

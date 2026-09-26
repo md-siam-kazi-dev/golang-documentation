@@ -18,6 +18,7 @@ import {
   NOINDEX_ROBOTS,
   OG_IMAGE,
   OG_IMAGE_SIZE,
+  WEBSITE_ID,
 } from "@/lib/seo";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
@@ -87,7 +88,7 @@ export default async function SectionPage({ params }: PageProps) {
     description: overview.summary,
     url: absoluteUrl(`/docs/${section.slug}`),
     inLanguage: "en",
-    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: absoluteUrl("/") },
+    isPartOf: { "@id": WEBSITE_ID },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: docs.length,

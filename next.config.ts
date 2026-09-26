@@ -5,6 +5,19 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   // Allow .mdx files to be used as routes or imported as components.
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  async headers() {
+    return [
+      {
+        // Raw authored sources in /doc are static assets, not pages. They
+        // duplicate the rendered docs, so keep them out of search results even
+        // if a crawler discovers them directly.
+        source: "/doc/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({

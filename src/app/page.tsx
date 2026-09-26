@@ -38,22 +38,8 @@ export default function Home() {
   const first = getDocs()[0];
   const sections = getSidebar();
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    inLanguage: "en",
-  };
-
   return (
     <div className="min-h-screen bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
       <header className="border-b border-slate-200">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <span className="flex items-center gap-2 font-semibold text-slate-900">
